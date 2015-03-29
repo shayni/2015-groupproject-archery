@@ -1,5 +1,6 @@
 package archery;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,14 +17,17 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 	private World world;
 
 	public ServerArcheryFrame() throws IOException {
-		this.setSize(800, 600);
-		this.setTitle("Archery");
+		//this.setSize(800, 600);
+		this.setExtendedState(this.MAXIMIZED_BOTH);
+		this.setTitle("server archery");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		world = new World();
+		this.getContentPane().setBackground(Color.WHITE);
+		this.setVisible(true);
+		world = new World(this);
 		add(world);
 		this.addKeyListener(this);
 		this.setVisible(true);
-		server = new Server(world.getClientPerson());
+		server = new Server(world.getClientPerson(), world.getClientArrow());
 		GameLoopThread t = new GameLoopThread(world);
 		t.start();
 	}
@@ -43,31 +47,34 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		Person person = world.getServerPerson();
+		ServerBowAndArrow arrow = world.getServerArrow();
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_8:
 			person.setY(person.getY() - 10);
+			arrow.setY(arrow.getY()-10);
 			break;
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_2:
 			person.setY(person.getY() + 10);
-
+			arrow.setY(arrow.getY()+10);
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_6:
 			person.setX(person.getX() + 10);
-
+			arrow.setX(arrow.getX()+10);
 			break;
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_4:
 			person.setX(person.getX() - 10);
-
+			arrow.setX(arrow.getX()-10);
 			break;
 		}
 		PrintWriter writer = server.getSocketThread().getOut();
 		writer.println(person.getX());
-		writer.flush();
 		writer.println(person.getY());
+		writer.println(arrow.getX());
+		writer.println(arrow.getY());
 		writer.flush();
 	}
 

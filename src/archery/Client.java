@@ -10,11 +10,11 @@ public class Client {
 
 	private ClientThread thread;
 
-	public Client(Person person) throws UnknownHostException, IOException {
+	public Client(Person person, ServerBowAndArrow arrow) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 1112);
 
 		if (socket != null) {
-			thread = new ClientThread(socket, person);
+			thread = new ClientThread(socket, person, arrow);
 			thread.start();
 		}
 	}

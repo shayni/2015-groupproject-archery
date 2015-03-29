@@ -43,7 +43,7 @@ public class Person {
 
 	public void draw(Graphics g) {
 		// label.setIcon(picture);
-		g.drawImage(picture, x, y, 60, 110, null);
+		g.drawImage(picture, x, y, 120, 170, null);
 
 	}
 }

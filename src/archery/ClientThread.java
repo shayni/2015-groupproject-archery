@@ -13,12 +13,12 @@ public class ClientThread extends Thread {
 	private BufferedReader reader;
 	private PrintWriter out;
 	private Person person;
-	private boolean xOrY;
+	private ServerBowAndArrow arrow;
 
-	public ClientThread(Socket socket, Person person) {
+	public ClientThread(Socket socket, Person person, ServerBowAndArrow arrow) {
 		this.socket = socket;
 		this.person = person;
-		xOrY = true;
+		this.arrow = arrow;
 	}
 
 	public PrintWriter getOut() {
@@ -35,13 +35,13 @@ public class ClientThread extends Thread {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			String inputLine;
 			while ((inputLine = reader.readLine()) != null) {
-				if (xOrY) {
+
 					person.setX(Integer.valueOf(inputLine));
-					xOrY = false;
-				} else {
-					person.setY(Integer.valueOf(inputLine));
-					xOrY = true;
-				}
+				
+					person.setY(Integer.valueOf(reader.readLine()));
+
+					arrow.setX(Integer.valueOf(reader.readLine()));
+					arrow.setY(Integer.valueOf(reader.readLine()));
 			}
 
 		} catch (IOException e) {

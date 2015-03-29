@@ -13,12 +13,12 @@ public class ServerThread extends Thread {
 	private BufferedReader reader;
 	private PrintWriter out;
 	private Person person;
-	boolean xOrY;
+	private ClientBowAndArrow arrow;
 
-	public ServerThread(Socket socket,Person person) {
+	public ServerThread(Socket socket,Person person, ClientBowAndArrow arrow) {
 		this.socket = socket;
 		this.person = person;
-		xOrY = true;
+		this.arrow = arrow;
 	}
 
 	@Override
@@ -32,14 +32,12 @@ public class ServerThread extends Thread {
 			String inputLine;
 			while ((inputLine = reader.readLine()) != null) {
 				
-				if (xOrY){
 				person.setX(Integer.valueOf(inputLine));
-				xOrY = false;
-				}
-				else {
-					person.setY(Integer.valueOf(inputLine));
-					xOrY = true;
-				}
+				
+				person.setY(Integer.valueOf(reader.readLine()));
+
+				arrow.setX(Integer.valueOf(reader.readLine()));
+				arrow.setY(Integer.valueOf(reader.readLine()));
 			}
 
 		} catch (IOException e) {

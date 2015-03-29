@@ -9,11 +9,11 @@ public class Server {
 	private ServerSocket serverSocket;
 	private ServerThread thread;
 
-	public Server(Person person) throws IOException {
+	public Server(Person person, ClientBowAndArrow arrow) throws IOException {
 		serverSocket = new ServerSocket(1112);
 		Socket socket = serverSocket.accept();
 		if (socket != null) {
-			thread = new ServerThread(socket, person);
+			thread = new ServerThread(socket, person, arrow);
 			thread.start();
 
 		}
