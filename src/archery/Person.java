@@ -18,13 +18,11 @@ public class Person {
 	private int x;
 	private int y;
 
-	public Person() throws IOException {
+	public Person(int x, int y) throws IOException {
 		picture = ImageIO.read(new File("person.jpg"));
-		x = 40;
-		y = 40;
-		// picture.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
-		// picture.setPreferredSize(new Dimension(this.getSize().width-50, 15));
-		// this.label =label;
+		this.x = x;
+		this.y = y;
+
 	}
 
 	public void setX(int x) {
@@ -34,6 +32,7 @@ public class Person {
 	public void setY(int y) {
 		this.y = y;
 	}
+
 	public int getX() {
 		return x;
 	}

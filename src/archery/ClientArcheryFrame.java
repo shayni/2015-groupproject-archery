@@ -1,54 +1,43 @@
 package archery;
 
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
-public class ArcheryFrame extends JFrame implements KeyListener {
+public class ClientArcheryFrame extends JFrame implements KeyListener {
 
-	// private JLabel label;
-	private ImageIcon image;
 	private World world;
+	private Client client;
 
-	public ArcheryFrame() throws IOException {
+	public ClientArcheryFrame() throws IOException {
 		this.setSize(800, 600);
 		this.setTitle("Archery");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-
-		// image = new ImageIcon("person.jpg");
-
-		 world = new World();
+		world = new World();
 		add(world);
 		this.addKeyListener(this);
-		// label = new JLabel();
-		// label.setIcon(image);
-		// label.
-		// this.add(person);
 		GameLoopThread t = new GameLoopThread(world);
 		t.start();
+		client = new Client(world.getServerPerson());
 	}
 
 	public static void main(String[] args) {
-		ArcheryFrame frame;
+		ClientArcheryFrame frame;
 		try {
-			frame = new ArcheryFrame();
+			frame = new ClientArcheryFrame();
 			frame.setVisible(true);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		Person person = world.getPer();
+		Person person = world.getClientPerson();
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_8:
@@ -70,17 +59,19 @@ public class ArcheryFrame extends JFrame implements KeyListener {
 
 			break;
 		}
+		PrintWriter writer = client.getClientThread().getOut();
+		writer.println(person.getX());
+		writer.println(person.getY());
+		writer.flush();
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
