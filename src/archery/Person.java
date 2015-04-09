@@ -2,6 +2,8 @@ package archery;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -46,4 +48,6 @@ public class Person {
 		g.drawImage(picture, x, y, 120, 170, null);
 
 	}
+
+
 }

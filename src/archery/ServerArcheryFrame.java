@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -26,6 +28,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 		world = new World(this);
 		add(world);
 		this.addKeyListener(this);
+		//this.addMouseMotionListener(this);
 		this.setVisible(true);
 		server = new Server(world.getClientPerson(), world.getClientArrow());
 		GameLoopThread t = new GameLoopThread(world);
@@ -89,5 +92,17 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 		// TODO Auto-generated method stub
 
 	}
+
+/*	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		System.out.println ("i moved!");
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}*/
 
 }
