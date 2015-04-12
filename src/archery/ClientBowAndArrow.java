@@ -11,12 +11,13 @@ public class ClientBowAndArrow {
 	BufferedImage picture;
 	private int x;
 	private int y;
+	private int width;
 	
 	public ClientBowAndArrow(int x,int y) throws IOException{
 		picture = ImageIO.read(new File("clientBowAndArrow.png"));
 		this.x = x;
 		this.y = y;
-		
+		width = 90;
 	}
 	
 	public int getX() {
@@ -30,6 +31,9 @@ public class ClientBowAndArrow {
 	public int getY() {
 		return y;
 	}
+	public int getTheWidth(){
+		return width;
+	}
 
 	public void setY(int y) {
 		this.y = y;
@@ -37,7 +41,7 @@ public class ClientBowAndArrow {
 
 	public void draw(Graphics g) {
 		
-		g.drawImage(picture, x, y, 90, 120, null);
+		g.drawImage(picture, x, y, width, 120, null);
 		
 	}
 }

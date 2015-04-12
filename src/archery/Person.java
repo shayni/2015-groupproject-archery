@@ -19,11 +19,15 @@ public class Person {
 	BufferedImage picture; // = ImageIO.read(new File("person.jpg"));
 	private int x;
 	private int y;
+	private int height;
+	private int width;
 
 	public Person(int x, int y) throws IOException {
 		picture = ImageIO.read(new File("person.jpg"));
 		this.x = x;
 		this.y = y;
+		height =170;
+		width =120;
 
 	}
 
@@ -42,10 +46,18 @@ public class Person {
 	public int getY() {
 		return y;
 	}
+	public int getHeight(){
+		return height;
+	}
+	
+	public int getWidth(){
+		return width;
+	}
+	
 
 	public void draw(Graphics g) {
 		// label.setIcon(picture);
-		g.drawImage(picture, x, y, 120, 170, null);
+		g.drawImage(picture, x, y, width, height, null);
 
 	}
 

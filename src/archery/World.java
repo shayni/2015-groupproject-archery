@@ -19,7 +19,7 @@ public class World extends JComponent {
 		int h = frame.getHeight();
 		int w = frame.getWidth();
 		serverPerson = new Person((int)(w*.1),(int)(h*.5));
-		clientPerson = new Person((int)(w*.9),(int)(h*.5));
+		clientPerson = new Person((int)(w*.8),(int)(h*.5));
 		int x=serverPerson.getX()+120;
 		int y=serverPerson.getY()-15;
 		int cx=clientPerson.getX()-90;
