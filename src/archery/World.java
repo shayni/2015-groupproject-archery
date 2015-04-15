@@ -61,4 +61,10 @@ public class World extends JComponent {
 		serArrow.draw(g);
 		cliArrow.draw(g);
 	}
+
+	public Arrow getSerArrow() {
+		return serArrow;
+	}
+
+	
 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
@@ -13,7 +14,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class ServerArcheryFrame extends JFrame implements KeyListener {
+public class ServerArcheryFrame extends JFrame implements KeyListener,
+		MouseMotionListener {
 
 	private Server server;
 	private World world;
@@ -26,23 +28,46 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setVisible(true);
-		mid = (this.getWidth() / 2)-5;
+		mid = (this.getWidth() / 2) - 5;
 
 		world = new World(this);
 		add(world);
 		this.addKeyListener(this);
-		// this.addMouseMotionListener(this);
+		this.addMouseMotionListener(adapter);
+
 		this.setVisible(true);
 		server = new Server(world.getClientPerson(), world.getClientArrow());
 		GameLoopThread t = new GameLoopThread(world);
 		t.start();
 	}
 
+	MouseAdapter adapter = new MouseAdapter() {
+
+		int xPressed;
+		int yPressed;
+		int xDragged;
+		int yDragged;
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			xPressed = e.getX();
+			yPressed = e.getY();
+		}
+
+		public void mouseDragged(MouseEvent e) {
+			xDragged = e.getX();
+			yDragged = e.getY();
+
+			int amount = yPressed - yDragged;
+		//	world.getSerArrow().setY2(world.getSerArrow().getY2() + amount);
+
+		}
+	};
+
 	public static void main(String[] args) {
 		ServerArcheryFrame frame;
 		try {
 			frame = new ServerArcheryFrame();
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,7 +88,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 			break;
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_2:
-			if (person.getY() +person.getHeight() < this.getHeight()) {
+			if (person.getY() + person.getHeight() < this.getHeight()) {
 				person.setY(person.getY() + 10);
 				arrow.setY(arrow.getY() + 10);
 			}
@@ -103,16 +128,14 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 
 	}
 
-	/*
-	 * @Override public void mouseDragged(MouseEvent arg0) { System.out.println
-	 * ("i moved!");
-	 * 
-	 * }
-	 * 
-	 * @Override public void mouseMoved(MouseEvent arg0) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * }
-	 */
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// System.out.println("i moved!");
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+
+	}
 
 }
