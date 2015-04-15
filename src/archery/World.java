@@ -1,5 +1,6 @@
 package archery;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.IOException;
 
@@ -12,6 +13,9 @@ public class World extends JComponent {
 	private Person clientPerson;
 	private ServerBowAndArrow serverArrow;
 	private ClientBowAndArrow clientArrow;
+	private Arrow serArrow;
+	private Arrow cliArrow;
+
 	//private JFrame frame;
 
 	public World(JFrame frame) throws IOException {
@@ -26,8 +30,8 @@ public class World extends JComponent {
 		int cy=clientPerson.getY()-15;
 		serverArrow = new ServerBowAndArrow(x,y);
 		clientArrow = new ClientBowAndArrow(cx,cy);
-		
-		
+		serArrow =new Arrow(serverArrow.getX(),serverArrow.getY()+(serverArrow.getHeight()/2),serverArrow.getX()+serverArrow.getWidth(),serverArrow.getY()+(serverArrow.getHeight()/2));
+		cliArrow =new Arrow(clientArrow.getX()+5,clientArrow.getY()+(clientArrow.getTheHeight()/2),clientArrow.getX()+clientArrow.getTheWidth(),clientArrow.getY()+(clientArrow.getTheHeight()/2));
 	}
 
 	public Person getServerPerson() {
@@ -53,5 +57,8 @@ public class World extends JComponent {
 		clientPerson.draw(g);
 		serverArrow.draw(g);
 		clientArrow.draw(g);
+		g.setColor(Color.GREEN);
+		serArrow.draw(g);
+		cliArrow.draw(g);
 	}
 }

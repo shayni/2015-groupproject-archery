@@ -10,7 +10,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-public class ServerBowAndArrow extends JComponent implements MouseMotionListener {
+public class ServerBowAndArrow  implements MouseMotionListener {
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
 
 	private BufferedImage picture;
 	private int x;
