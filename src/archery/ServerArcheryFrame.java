@@ -59,7 +59,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener,
 			yDragged = e.getY();
 
 			int amount = yPressed - yDragged;
-		//	world.getSerArrow().setY2(world.getSerArrow().getY2() + amount);
+			world.getSerArrow().setY2(world.getSerArrow().getY2() + amount);
 
 		}
 	};
