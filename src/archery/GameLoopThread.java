@@ -11,9 +11,9 @@ public class GameLoopThread extends Thread {
 		this.world=world;
 		this.frame = frame;
 	}
-	public GameLoopThread(World world, ClientArcheryFrame frame) {
+	public GameLoopThread(World world, ClientArcheryFrame frame2) {
 		this.world=world;
-		this.frame2 = frame;
+		this.frame2 = frame2;
 	}
 
 	public void run() {
@@ -22,7 +22,11 @@ public class GameLoopThread extends Thread {
 			world.repaint();
 			if (frame.isReleased()){
 				world.getSerArrow().move();
+				System.out.println ("sever arrow moving");
 			}
+			/*if (frame2.isReleased()){
+				world.getCliArrow().move();
+			}*/
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

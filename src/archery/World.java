@@ -66,5 +66,9 @@ public class World extends JComponent {
 		return serArrow;
 	}
 
+	public Arrow getCliArrow() {
+		return cliArrow;
+	}
+
 	
 }

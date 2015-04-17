@@ -203,7 +203,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			// TODO Auto-generated method stub
 			world.getSerArrow().move();
 			System.out.println("released");
-			released = true;
 
 		}
 
