@@ -47,19 +47,40 @@ public class ServerArcheryFrame extends JFrame implements KeyListener,
 		int yPressed;
 		int xDragged;
 		int yDragged;
+		int x;
+		int y;
+		
+		float h;
+		float o;
+		float a;
+		
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			xPressed = e.getX();
 			yPressed = e.getY();
+			y = yPressed;
 		}
 
 		public void mouseDragged(MouseEvent e) {
 			xDragged = e.getX();
 			yDragged = e.getY();
+			x = xDragged;
+			
+			h= (float)Math.sqrt(Math.pow(xDragged-xPressed, 2)+Math.pow(yDragged-yPressed, 2));
+			o=(float)Math.sqrt(Math.pow(xDragged-x, 2)+Math.pow(yDragged-y, 2));
+			a=(float)Math.sqrt(Math.pow(xPressed-x, 2)+Math.pow(yPressed-y, 2));
 
-			int amount = yPressed - yDragged;
-			world.getSerArrow().setY2(world.getSerArrow().getY2() + amount);
+			double angle = Math.acos((a/h));
+			
+			/*double angle1 = Math
+					.atan2(yPressed - yDragged, xPressed - xDragged);
+			double angle2 = Math.atan2(yPressed - y, xPressed - x);
+			
+			
+			double amount =Math.abs(angle1) - Math.abs(angle2);*/
+			double toDegree = Math.toDegrees(angle);
+			System.out.println(toDegree);
 
 		}
 	};
