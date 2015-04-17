@@ -22,6 +22,11 @@ public class Arrow {
 	public void draw(Graphics g){
 		g.drawLine(x1, y1, x2, y2);
 	}
+	
+	public void move(){
+		setX1(x1+20);
+		setX2(x2+20);
+	}
 
 	public int getX1() {
 		return x1;

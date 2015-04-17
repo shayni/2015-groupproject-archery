@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,12 +15,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class ServerArcheryFrame extends JFrame implements KeyListener,
-		MouseMotionListener {
+public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener {
 
 	private Server server;
 	private World world;
 	private double mid;
+	private boolean released;
+
+	
 
 	public ServerArcheryFrame() throws IOException {
 		// this.setSize(800, 600);
@@ -34,10 +37,11 @@ public class ServerArcheryFrame extends JFrame implements KeyListener,
 		add(world);
 		this.addKeyListener(this);
 		this.addMouseMotionListener(adapter);
+		this.addMouseListener(listern);
 
 		this.setVisible(true);
 		server = new Server(world.getClientPerson(), world.getClientArrow());
-		GameLoopThread t = new GameLoopThread(world);
+		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
 	}
 
@@ -49,11 +53,10 @@ public class ServerArcheryFrame extends JFrame implements KeyListener,
 		int yDragged;
 		int x;
 		int y;
-		
+
 		float h;
 		float o;
 		float a;
-		
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -66,21 +69,31 @@ public class ServerArcheryFrame extends JFrame implements KeyListener,
 			xDragged = e.getX();
 			yDragged = e.getY();
 			x = xDragged;
-			
-			h= (float)Math.sqrt(Math.pow(xDragged-xPressed, 2)+Math.pow(yDragged-yPressed, 2));
-			o=(float)Math.sqrt(Math.pow(xDragged-x, 2)+Math.pow(yDragged-y, 2));
-			a=(float)Math.sqrt(Math.pow(xPressed-x, 2)+Math.pow(yPressed-y, 2));
 
-			double angle = Math.acos((a/h));
-			
-			/*double angle1 = Math
-					.atan2(yPressed - yDragged, xPressed - xDragged);
-			double angle2 = Math.atan2(yPressed - y, xPressed - x);
-			
-			
-			double amount =Math.abs(angle1) - Math.abs(angle2);*/
+			h = (float) Math.sqrt(Math.pow(xDragged - xPressed, 2) + Math.pow(yDragged - yPressed, 2));
+			o = (float) Math.sqrt(Math.pow(xDragged - x, 2) + Math.pow(yDragged - y, 2));
+			a = (float) Math.sqrt(Math.pow(xPressed - x, 2) + Math.pow(yPressed - y, 2));
+
+			double angle = Math.acos((a / h));
+
+			/*
+			 * double angle1 = Math .atan2(yPressed - yDragged, xPressed -
+			 * xDragged); double angle2 = Math.atan2(yPressed - y, xPressed -
+			 * x);
+			 * 
+			 * 
+			 * double amount =Math.abs(angle1) - Math.abs(angle2);
+			 */
 			double toDegree = Math.toDegrees(angle);
 			System.out.println(toDegree);
+			// world.getSerArrow().move();
+
+		}
+
+		public void mouseReleased(MouseEvent e) {
+
+			// world.getSerArrow().setX1(world.getSerArrow().getX1()+10);
+			// world.getSerArrow().setX2(world.getSerArrow().getX2()+10);
 
 		}
 	};
@@ -90,7 +103,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener,
 		try {
 			frame = new ServerArcheryFrame();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
@@ -157,6 +170,47 @@ public class ServerArcheryFrame extends JFrame implements KeyListener,
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
 
+	}
+
+	MouseListener listern = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			world.getSerArrow().move();
+			System.out.println("released");
+			released = true;
+
+		}
+
+	};
+	
+	public boolean isReleased() {
+		return released;
 	}
 
 }

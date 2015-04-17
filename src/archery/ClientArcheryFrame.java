@@ -25,7 +25,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener {
 		this.addKeyListener(this);
 		this.setVisible(true);
 		mid = (this.getWidth() / 2) + 5;
-		GameLoopThread t = new GameLoopThread(world);
+		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
 		client = new Client(world.getServerPerson(), world.getServerArrow());
 	}
