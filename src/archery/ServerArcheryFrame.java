@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 
 import javax.swing.JFrame;
 
@@ -138,12 +137,21 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			}
 			break;
 		}
-		PrintWriter writer = server.getSocketThread().getOut();
-		writer.println(person.getX());
-		writer.println(person.getY());
-		writer.println(arrow.getX());
-		writer.println(arrow.getY());
-		writer.flush();
+		PersonMoves moves = new PersonMoves(person, arrow);
+		ObjectOutputStream output;
+		try {
+			output = new ObjectOutputStream(server.getSocketThread().getOutput());
+			output.writeObject(moves);
+			output.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		// PrintWriter writer = server.getSocketThread().getOut();
+		// writer.println(person.getX());
+		// writer.println(person.getY());
+		// writer.println(arrow.getX());
+		// writer.println(arrow.getY());
+		// writer.flush();
 	}
 
 	@Override
