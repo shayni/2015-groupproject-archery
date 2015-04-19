@@ -1,13 +1,10 @@
 package archery;
 
-public class Command extends Commands {
+public class Command implements Messages {
 
 	@Override
-	public void sendInfo() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void perform() {
 
-	
+	}
 
 }

@@ -1,10 +1,10 @@
 package archery;
 
-public class PerosnHit extends Commands{
+public class PerosnHit implements Messages {
 
 	@Override
-	public void sendInfo() {
-		
+	public void perform() {
+
 	}
 
 }

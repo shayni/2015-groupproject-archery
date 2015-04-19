@@ -1,7 +1,6 @@
 package archery;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -9,11 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener {
 
@@ -21,8 +19,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 	private World world;
 	private double mid;
 	private boolean released;
-
-	
 
 	public ServerArcheryFrame() throws IOException {
 		// this.setSize(800, 600);
@@ -194,10 +190,19 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		public void mouseReleased(MouseEvent e) {
 			System.out.println("released");
 			released = true;
+			world.getSerArrow().move();
+			ArrowReleased arrowReleased = new ArrowReleased(world.getSerArrow());
+			ObjectOutputStream output = server.getSocketThread().getOutput();
+			try {
+				output.writeObject(arrowReleased);
+				output.flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 	};
-	
+
 	public boolean isReleased() {
 		return released;
 	}
