@@ -35,9 +35,10 @@ public class ClientThread extends Thread {
 		try {
 			in = socket.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
-			input = new ObjectInputStream(new BufferedInputStream(in));
+			input = new ObjectInputStream(in);
 			Messages msg = (Messages) input.readObject();
 			msg.perform();
+
 			out = new PrintWriter(socket.getOutputStream(), true);
 			String inputLine;
 			while ((inputLine = reader.readLine()) != null) {

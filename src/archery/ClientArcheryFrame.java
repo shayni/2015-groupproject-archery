@@ -32,9 +32,10 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		this.addMouseListener(listern);
 		this.setVisible(true);
 		mid = (this.getWidth() / 2) + 5;
+		client = new Client(world.getServerPerson(), world.getServerArrow());
+
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
-		client = new Client(world.getServerPerson(), world.getServerArrow());
 	}
 	
 	MouseAdapter adapter = new MouseAdapter() {
@@ -113,15 +114,13 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
 			world.getCliArrow().move();
-			System.out.println("released");
+			System.out.println("released client");
 			released = true;
 
 		}

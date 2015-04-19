@@ -2,21 +2,16 @@ package archery;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 
-public class Person {
+public class Person implements Serializable {
 
 	// private JLabel label;
-	BufferedImage picture; // = ImageIO.read(new File("person.jpg"));
+	private Image picture; // = ImageIO.read(new File("person.jpg"));
 	private int x;
 	private int y;
 	private int height;
@@ -26,8 +21,8 @@ public class Person {
 		picture = ImageIO.read(new File("person.jpg"));
 		this.x = x;
 		this.y = y;
-		height =170;
-		width =120;
+		height = 170;
+		width = 120;
 
 	}
 
@@ -46,20 +41,18 @@ public class Person {
 	public int getY() {
 		return y;
 	}
-	public int getHeight(){
+
+	public int getHeight() {
 		return height;
 	}
-	
-	public int getWidth(){
+
+	public int getWidth() {
 		return width;
 	}
-	
 
 	public void draw(Graphics g) {
-		// label.setIcon(picture);
 		g.drawImage(picture, x, y, width, height, null);
 
 	}
-
 
 }

@@ -1,6 +1,8 @@
 package archery;
 
-public class PersonMoves implements Messages {
+import java.io.Serializable;
+
+public class PersonMoves implements Messages, Serializable{
 
 	private Person person;
 	private ServerBowAndArrow arrow;
@@ -12,10 +14,12 @@ public class PersonMoves implements Messages {
 
 	@Override
 	public void perform() {
-		person.setX(person.getX());
+		
 		person.setY(person.getY());
+		arrow.setY(arrow.getY());
+		person.setX(person.getX());
 		arrow.setX(arrow.getX());
-		arrow.setX(arrow.getY());
+		
 	}
 
 }

@@ -32,14 +32,13 @@ public class ServerThread extends Thread {
 			in = socket.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 			out = new PrintWriter(socket.getOutputStream(), true);
-			output = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+			output = new ObjectOutputStream(socket.getOutputStream());
 			String inputLine;
+
 			while ((inputLine = reader.readLine()) != null) {
 
 				person.setX(Integer.valueOf(inputLine));
-
 				person.setY(Integer.valueOf(reader.readLine()));
-
 				arrow.setX(Integer.valueOf(reader.readLine()));
 				arrow.setY(Integer.valueOf(reader.readLine()));
 			}

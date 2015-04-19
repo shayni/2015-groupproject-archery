@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 
 import javax.swing.JFrame;
 
@@ -137,7 +138,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			}
 			break;
 		}
-		PersonMoves moves = new PersonMoves(person, arrow);
+	/*	PersonMoves moves = new PersonMoves(person, arrow);
 		ObjectOutputStream output;
 		try {
 			output = new ObjectOutputStream(server.getSocketThread().getOutput());
@@ -145,13 +146,13 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			output.flush();
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}
-		// PrintWriter writer = server.getSocketThread().getOut();
-		// writer.println(person.getX());
-		// writer.println(person.getY());
-		// writer.println(arrow.getX());
-		// writer.println(arrow.getY());
-		// writer.flush();
+		}*/
+		 PrintWriter writer = server.getSocketThread().getOut();
+		 writer.println(person.getX());
+		 writer.println(person.getY());
+		 writer.println(arrow.getX());
+		 writer.println(arrow.getY());
+		 writer.flush();
 	}
 
 	@Override
@@ -197,7 +198,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			System.out.println("released");
-			released = true;
+			//released = true;
 			world.getSerArrow().move();
 			ArrowReleased arrowReleased = new ArrowReleased(world.getSerArrow());
 			ObjectOutputStream output = server.getSocketThread().getOutput();

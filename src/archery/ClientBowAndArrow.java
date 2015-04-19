@@ -4,10 +4,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
-public class ClientBowAndArrow {
+public class ClientBowAndArrow implements Serializable{
 	BufferedImage picture;
 	private int x;
 	private int y;

@@ -1,16 +1,16 @@
 package archery;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
-public class ServerBowAndArrow  implements MouseMotionListener {
+public class ServerBowAndArrow  implements MouseMotionListener, Serializable {
 
 	public int getWidth() {
 		return width;
@@ -20,7 +20,7 @@ public class ServerBowAndArrow  implements MouseMotionListener {
 		return height;
 	}
 
-	private BufferedImage picture;
+	private Image picture;
 	private int x;
 	private int y;
 	private int width;
@@ -28,6 +28,7 @@ public class ServerBowAndArrow  implements MouseMotionListener {
 
 	public ServerBowAndArrow(int x, int y) throws IOException {
 		picture = ImageIO.read(new File("bowandarrow.png"));
+	
 		this.x = x;
 		this.y = y;
 		width = 90;
