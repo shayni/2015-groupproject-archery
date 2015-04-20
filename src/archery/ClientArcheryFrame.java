@@ -30,6 +30,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		this.setTitle("client archery");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.WHITE);
+		this.setBackground(Color.GREEN);
 		this.setVisible(true);
 		world = new World(this);
 		add(world);

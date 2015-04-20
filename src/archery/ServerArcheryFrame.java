@@ -26,9 +26,11 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		// this.setSize(800, 600);
 		this.setExtendedState(this.MAXIMIZED_BOTH);
 		this.setTitle("server archery");
+
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.WHITE);
 		this.setVisible(true);
+
 		mid = (this.getWidth() / 2) - 5;
 
 		world = new World(this);
@@ -136,7 +138,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		case KeyEvent.VK_6:
 			int tempX = arrow.getX1();
 			int tempX2 = arrow.getX2();
-			if ((tempX2 - tempX) < mid) {
+			if (tempX2 < mid) {
 				person.setX(person.getX() + 10);
 				arrow.setX1(arrow.getX1() + 10);
 				arrow.setX2(arrow.getX2() + 10);

@@ -24,7 +24,7 @@ public class Person extends JComponent implements Serializable {
 		height = 170;
 		width = 120;
 		//picture = ImageIO.read(new File("person.jpg"));
-		icon = new ImageIcon("person.jpg");
+		icon = new ImageIcon("man2.jpg");
 		//icon= new ImageIcon(picture.getScaledInstance(width, height, Image.SCALE_SMOOTH));
 		
 		this.x = x;

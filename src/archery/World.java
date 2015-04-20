@@ -12,8 +12,8 @@ public class World extends JComponent implements Serializable{
 
 	private Person serverPerson;
 	private Person clientPerson;
-	private ServerBowAndArrow serverArrow;
-	private ClientBowAndArrow clientArrow;
+	//private ServerBowAndArrow serverArrow;
+	//private ClientBowAndArrow clientArrow;
 	private Arrow serArrow;
 	private Arrow cliArrow;
 
@@ -25,16 +25,18 @@ public class World extends JComponent implements Serializable{
 		int w = frame.getWidth();
 		serverPerson = new Person((int) (w * .1), (int) (h * .5));
 		clientPerson = new Person((int) (w * .8), (int) (h * .5));
-		int x = serverPerson.getX() + 120;
-		int y = serverPerson.getY() - 15;
-		int cx = clientPerson.getX() - 90;
-		int cy = clientPerson.getY() - 15;
-		serverArrow = new ServerBowAndArrow(x, y);
-		clientArrow = new ClientBowAndArrow(cx, cy);
-		serArrow = new Arrow(serverArrow.getX(), serverArrow.getY() + (serverArrow.getHeight() / 2), serverArrow.getX()
-				+ serverArrow.getWidth(), serverArrow.getY() + (serverArrow.getHeight() / 2));
-		cliArrow = new Arrow(clientArrow.getX() + 5, clientArrow.getY() + (clientArrow.getTheHeight() / 2),
-				clientArrow.getX() + clientArrow.getTheWidth(), clientArrow.getY() + (clientArrow.getTheHeight() / 2));
+		int x = serverPerson.getX() + 150;
+		int y = serverPerson.getY() + 90;
+		int cx = clientPerson.getX() ;
+		int cy = clientPerson.getY() + 90;
+		//serverArrow = new ServerBowAndArrow(x, y);
+		//clientArrow = new ClientBowAndArrow(cx, cy);
+		//serArrow = new Arrow(serverArrow.getX(), serverArrow.getY() + (serverArrow.getHeight() / 2), serverArrow.getX()
+		//		+ serverArrow.getWidth(), serverArrow.getY() + (serverArrow.getHeight() / 2));
+		//cliArrow = new Arrow(clientArrow.getX() + 5, clientArrow.getY() + (clientArrow.getTheHeight() / 2),
+		//		clientArrow.getX() + clientArrow.getTheWidth(), clientArrow.getY() + (clientArrow.getTheHeight() / 2));
+		serArrow = new Arrow(x,y,x+100,y);
+		cliArrow = new Arrow(cx, cy,cx-100, cy);
 	}
 
 	public Person getServerPerson() {
@@ -58,8 +60,8 @@ public class World extends JComponent implements Serializable{
 		super.paintComponent(g);
 		serverPerson.draw(g);
 		clientPerson.draw(g);
-		serverArrow.draw(g);
-		clientArrow.draw(g);
+		//serverArrow.draw(g);
+		//clientArrow.draw(g);
 		g.setColor(Color.GREEN);
 		serArrow.draw(g);
 		System.out.println("world: " + serArrow.getX1() + " " + serArrow.getX2());
