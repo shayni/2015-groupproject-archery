@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 import java.net.Socket;
 
-public class ServerThread extends Thread implements  Serializable {
+public class ServerThread extends Thread implements Serializable {
 
 	private Socket socket;
 	// private BufferedReader reader;
@@ -18,11 +18,13 @@ public class ServerThread extends Thread implements  Serializable {
 	private ClientBowAndArrow arrow;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
+	private World world;
 
-	public ServerThread(Socket socket, Person person, ClientBowAndArrow arrow) throws IOException {
+	public ServerThread(Socket socket, World world) throws IOException {
 		this.socket = socket;
-		this.person = person;
-		this.arrow = arrow;
+		this.world = world;
+		// this.person = person;
+		// this.arrow = arrow;
 		output = new ObjectOutputStream(socket.getOutputStream());
 	}
 
@@ -35,10 +37,10 @@ public class ServerThread extends Thread implements  Serializable {
 			// reader = new BufferedReader(new InputStreamReader(in));
 			// out = new PrintWriter(socket.getOutputStream(), true);
 			input = new ObjectInputStream(in);
-
-			Messages msg = (Messages) input.readObject();
-			World world = null;
-			msg.perform(world);
+			while (true) {
+				Messages msg = (Messages) input.readObject();
+				msg.perform(world);
+			}
 			// String inputLine;
 
 			/*

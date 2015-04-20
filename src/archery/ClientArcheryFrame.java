@@ -187,21 +187,16 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			break;
 		}
 
-		PersonMoves moves = new PersonMoves(person, arrow);
+		ClientPersonMoves moves = new ClientPersonMoves(person, arrow);
 		try {
-			output = new ObjectOutputStream(client.getClientThread().getOutput());
+			output = client.getClientThread().getOutput();
 			output.writeObject(moves);
 			output.flush();
+			output.reset();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
-		/*
-		 * PrintWriter writer = client.getClientThread().getOut();
-		 * writer.println(person.getX()); writer.println(person.getY());
-		 * writer.println(arrow.getX()); writer.println(arrow.getY());
-		 * writer.flush();
-		 */
 	}
 
 	@Override

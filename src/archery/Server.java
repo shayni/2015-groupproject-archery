@@ -9,12 +9,13 @@ public class Server implements  Serializable{
 
 	private ServerSocket serverSocket;
 	private ServerThread thread;
+	private World world;
 
-	public Server(Person person, ClientBowAndArrow arrow) throws IOException {
+	public Server(World world) throws IOException {
 		serverSocket = new ServerSocket(1112);
 		Socket socket = serverSocket.accept();
 		if (socket != null) {
-			thread = new ServerThread(socket, person, arrow);
+			thread = new ServerThread(socket, world);
 			thread.start();
 
 		}

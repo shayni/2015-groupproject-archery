@@ -11,6 +11,8 @@ import java.net.Socket;
 
 public class ClientThread extends Thread implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
 	private Socket socket;
 	private BufferedReader reader;
 	private PrintWriter out;
@@ -23,46 +25,52 @@ public class ClientThread extends Thread implements Serializable {
 
 	public ClientThread(Socket socket, World world) throws IOException {
 		this.socket = socket;
-		/*this.person = person;
-		this.arrow = arrow;*/
+		/*
+		 * this.person = person; this.arrow = arrow;
+		 */
 		this.world = world;
-		output = new ObjectOutputStream(socket.getOutputStream());
+		 output = new ObjectOutputStream(socket.getOutputStream());
+		InputStream in = socket.getInputStream();
+		input = new ObjectInputStream(in);
 	}
 
-	/*
-	 * public PrintWriter getOut() { return out; }
-	 */
+	
+
+	
 
 	public ObjectOutputStream getOutput() {
 		return output;
 	}
 
+
+
+
+
 	@Override
 	public void run() {
 
-		InputStream in;
+		//InputStream in;
 		try {
-			in = socket.getInputStream();
+			//in = socket.getInputStream();
 			// reader = new BufferedReader(new InputStreamReader(in));
-			input = new ObjectInputStream(in);
-			while (true){
-			Messages msg = (Messages) input.readObject();
-			msg.perform(world);
-			System.out.println("i performed!");
+		//	input = new ObjectInputStream(in);
+			while (true) {
+				Messages msg = (Messages) input.readObject();
+				msg.perform(world);
+				System.out.println("i performed!");
 			}
 
-			/*out = new PrintWriter(socket.getOutputStream(), true);
-			String inputLine;
-			while ((inputLine = reader.readLine()) != null) {
-
-				person.setX(Integer.valueOf(inputLine));
-
-				person.setY(Integer.valueOf(reader.readLine()));
-
-				arrow.setX(Integer.valueOf(reader.readLine()));
-				arrow.setY(Integer.valueOf(reader.readLine()));
-			}*/
-
+			/*
+			 * out = new PrintWriter(socket.getOutputStream(), true); String
+			 * inputLine; while ((inputLine = reader.readLine()) != null) {
+			 * 
+			 * person.setX(Integer.valueOf(inputLine));
+			 * 
+			 * person.setY(Integer.valueOf(reader.readLine()));
+			 * 
+			 * arrow.setX(Integer.valueOf(reader.readLine()));
+			 * arrow.setY(Integer.valueOf(reader.readLine())); }
+			 */
 
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();

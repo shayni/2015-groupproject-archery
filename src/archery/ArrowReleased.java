@@ -9,9 +9,8 @@ public class ArrowReleased implements Messages, Serializable {
 	private int x1;
 	private int x2;
 
-	public ArrowReleased(Arrow arrow /* , World world */) {
+	public ArrowReleased(Arrow arrow) {
 		this.arrow = arrow;
-		// this.world = world;
 	}
 
 	public ArrowReleased(int x1, int x2) {
@@ -25,6 +24,7 @@ public class ArrowReleased implements Messages, Serializable {
 		System.out.println("entered perform");
 		int x1 = arrow.getX1();
 		int x2 = arrow.getX2();
+		System.out.println("before perform:" + arrow.getX1() + " " + arrow.getX2());
 		// arrow.move();
 		// System.out.println ("perform:" + arrow.getX1() + " " +
 		// arrow.getX2());

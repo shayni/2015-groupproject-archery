@@ -7,20 +7,27 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 
-public class ClientBowAndArrow implements Serializable{
+public class ClientBowAndArrow extends JComponent implements Serializable{
 	private Image picture;
+	private ImageIcon icon;
 	private int x;
 	private int y;
 	private int width;
 	private int height;
 	
 	public ClientBowAndArrow(int x,int y) throws IOException{
-		picture = ImageIO.read(new File("clientBowAndArrow.png"));
-		this.x = x;
-		this.y = y;
+		
 		width = 90;
 		height = 120;
+		//picture = ImageIO.read(new File("clientBowAndArrow.png"));
+		 icon = new ImageIcon("clientBowAndArrow.png");
+		//icon= new ImageIcon(i.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		this.x = x;
+		this.y = y;
+		
 	}
 	
 	public int getX() {
@@ -47,7 +54,7 @@ public class ClientBowAndArrow implements Serializable{
 
 	public void draw(Graphics g) {
 		
-		g.drawImage(picture, x, y, width, height, null);
-		
+		//g.drawImage(icon, x, y, width, height, null);
+		icon.paintIcon(this, g, x, y);
 	}
 }

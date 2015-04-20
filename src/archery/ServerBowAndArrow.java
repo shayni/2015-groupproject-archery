@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 
-public class ServerBowAndArrow  implements MouseMotionListener, Serializable {
+public class ServerBowAndArrow extends JComponent implements MouseMotionListener, Serializable {
 
 	public int getWidth() {
 		return width;
@@ -25,14 +27,18 @@ public class ServerBowAndArrow  implements MouseMotionListener, Serializable {
 	private int y;
 	private int width;
 	private int height;
+	private ImageIcon icon;
 
 	public ServerBowAndArrow(int x, int y) throws IOException {
-		picture = ImageIO.read(new File("bowandarrow.png"));
-	
-		this.x = x;
-		this.y = y;
+		
 		width = 90;
 		height = 120;
+		picture = ImageIO.read(new File("bowandarrow.png"));
+		icon= new ImageIcon(picture.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+
+		this.x = x;
+		this.y = y;
+		
 		
 	}
 
@@ -57,8 +63,8 @@ public class ServerBowAndArrow  implements MouseMotionListener, Serializable {
 	
 	public void draw(Graphics g) {
 
-		g.drawImage(picture, x, y, width, height, null);
-
+		//g.drawImage(picture, x, y, width, height, null);
+		icon.paintIcon(this, g, x, y);
 	}
 
 	@Override

@@ -7,22 +7,29 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 
-public class Person implements Serializable {
+public class Person extends JComponent implements Serializable {
 
 	// private JLabel label;
 	private Image picture; // = ImageIO.read(new File("person.jpg"));
+	private ImageIcon icon;
 	private int x;
 	private int y;
 	private int height;
 	private int width;
 
 	public Person(int x, int y) throws IOException {
-		picture = ImageIO.read(new File("person.jpg"));
-		this.x = x;
-		this.y = y;
 		height = 170;
 		width = 120;
+		//picture = ImageIO.read(new File("person.jpg"));
+		icon = new ImageIcon("person.jpg");
+		//icon= new ImageIcon(picture.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		
+		this.x = x;
+		this.y = y;
+		
 
 	}
 
@@ -51,8 +58,9 @@ public class Person implements Serializable {
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(picture, x, y, width, height, null);
+		//g.drawImage(picture, x, y, width, height, null);
 
+		icon.paintIcon(this, g, x, y);
 	}
 
 }

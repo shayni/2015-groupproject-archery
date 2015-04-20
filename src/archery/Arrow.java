@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 public class Arrow implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
 	private int x1;
 	private int y1;
 	private int x2;
@@ -26,6 +28,7 @@ public class Arrow implements Serializable {
 		setX1(x1 + 100);
 		System.out.println("Hello2");
 		setX2(x2 + 100);
+		
 	}
 
 	public int getX1() {

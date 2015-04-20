@@ -20,7 +20,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 	private World world;
 	private double mid;
 	private boolean released;
-
 	private ObjectOutputStream output;
 
 	public ServerArcheryFrame() throws IOException {
@@ -39,7 +38,8 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		this.addMouseListener(listern);
 
 		this.setVisible(true);
-		server = new Server(world.getClientPerson(), world.getClientArrow());
+		server = new Server(world);
+		output = server.getSocketThread().getOutput();
 
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
@@ -154,9 +154,11 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		PersonMoves moves = new PersonMoves(person, arrow);
 		try {
-			output = new ObjectOutputStream(server.getSocketThread().getOutput());
+			// output = new
+			// ObjectOutputStream(server.getSocketThread().getOutput());
 			output.writeObject(moves);
 			output.flush();
+			output.reset();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -214,17 +216,18 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		public void mouseReleased(MouseEvent e) {
 			System.out.println("released");
 			// released = true;
-			world.getSerArrow().move();
+			Arrow arrow = world.getSerArrow();
+			arrow.move();
 
-			ArrowReleased arrowReleased = new ArrowReleased(world.getSerArrow());
+			ArrowReleased arrowReleased = new ArrowReleased(arrow);
 			// ArrowReleased arrowReleased = new
 			// ArrowReleased(world.getSerArrow().getX1(),
 			// world.getSerArrow().getX2());
 
 			try {
-				output = new ObjectOutputStream(server.getSocketThread().getOutput());
 				output.writeObject(arrowReleased);
 				output.flush();
+				output.reset();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
