@@ -3,8 +3,8 @@ package archery;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.Socket;
@@ -16,16 +16,23 @@ public class ClientThread extends Thread implements Serializable {
 	private PrintWriter out;
 	private Person person;
 	private ServerBowAndArrow arrow;
-	private ObjectInputStream input;
 
-	public ClientThread(Socket socket, Person person, ServerBowAndArrow arrow) {
+	private ObjectInputStream input;
+	private ObjectOutputStream output;
+
+	public ClientThread(Socket socket, Person person, ServerBowAndArrow arrow) throws IOException {
 		this.socket = socket;
 		this.person = person;
 		this.arrow = arrow;
+		output = new ObjectOutputStream(socket.getOutputStream());
 	}
 
-	public PrintWriter getOut() {
-		return out;
+	/*
+	 * public PrintWriter getOut() { return out; }
+	 */
+
+	public ObjectOutputStream getOutput() {
+		return output;
 	}
 
 	@Override
@@ -34,7 +41,7 @@ public class ClientThread extends Thread implements Serializable {
 		InputStream in;
 		try {
 			in = socket.getInputStream();
-			reader = new BufferedReader(new InputStreamReader(in));
+			// reader = new BufferedReader(new InputStreamReader(in));
 			input = new ObjectInputStream(in);
 			while (true){
 			Messages msg = (Messages) input.readObject();
@@ -53,6 +60,7 @@ public class ClientThread extends Thread implements Serializable {
 				arrow.setX(Integer.valueOf(reader.readLine()));
 				arrow.setY(Integer.valueOf(reader.readLine()));
 			}*/
+
 
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
