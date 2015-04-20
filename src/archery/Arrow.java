@@ -23,7 +23,14 @@ public class Arrow implements Serializable {
 		g.drawLine(x1, y1, x2, y2);
 	}
 
-	public void move() {
+	public void moveClient() {
+		System.out.println("Hello1");
+		setX1(x1 - 100);
+		System.out.println("Hello2");
+		setX2(x2 - 100);
+		
+	}
+	public void moveServer() {
 		System.out.println("Hello1");
 		setX1(x1 + 100);
 		System.out.println("Hello2");

@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.io.ObjectOutputStream;
 
 
+
 import javax.swing.JFrame;
 
 public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMotionListener, Serializable {
@@ -38,7 +39,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		this.setVisible(true);
 		mid = (this.getWidth() / 2) + 5;
 		client = new Client(world);
-
+		output = client.getClientThread().getOutput();
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
 		// output = new
@@ -92,9 +93,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		public void mouseReleased(MouseEvent e) {
 
-			// world.getSerArrow().setX1(world.getSerArrow().getX1()+10);
-			// world.getSerArrow().setX2(world.getSerArrow().getX2()+10);
-
+			
 		}
 	};
 
@@ -125,10 +124,21 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			world.getCliArrow().move();
-			System.out.println("released client");
-			released = true;
+			Arrow arrow = world.getCliArrow();
+			arrow.moveClient();
 
+			ClientArrowReleases arrowReleased = new ClientArrowReleases(arrow);
+			// ArrowReleased arrowReleased = new
+			// ArrowReleased(world.getSerArrow().getX1(),
+			// world.getSerArrow().getX2());
+
+			try {
+				output.writeObject(arrowReleased);
+				output.flush();
+				output.reset();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 	};

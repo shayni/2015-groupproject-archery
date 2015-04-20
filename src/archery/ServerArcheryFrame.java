@@ -217,7 +217,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			System.out.println("released");
 			// released = true;
 			Arrow arrow = world.getSerArrow();
-			arrow.move();
+			arrow.moveServer();
 
 			ArrowReleased arrowReleased = new ArrowReleased(arrow);
 			// ArrowReleased arrowReleased = new
