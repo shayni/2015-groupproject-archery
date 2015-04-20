@@ -1,15 +1,15 @@
 package archery;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.Socket;
 
-public class ClientThread extends Thread {
+public class ClientThread extends Thread implements Serializable {
 
 	private Socket socket;
 	private BufferedReader reader;
@@ -36,10 +36,13 @@ public class ClientThread extends Thread {
 			in = socket.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 			input = new ObjectInputStream(in);
+			while (true){
 			Messages msg = (Messages) input.readObject();
 			msg.perform();
+			System.out.println("i performed!");
+			}
 
-			out = new PrintWriter(socket.getOutputStream(), true);
+			/*out = new PrintWriter(socket.getOutputStream(), true);
 			String inputLine;
 			while ((inputLine = reader.readLine()) != null) {
 
@@ -49,7 +52,7 @@ public class ClientThread extends Thread {
 
 				arrow.setX(Integer.valueOf(reader.readLine()));
 				arrow.setY(Integer.valueOf(reader.readLine()));
-			}
+			}*/
 
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();

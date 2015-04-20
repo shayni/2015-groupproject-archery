@@ -9,10 +9,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 
 import javax.swing.JFrame;
 
-public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMotionListener {
+public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMotionListener, Serializable {
 
 	private World world;
 	private Client client;

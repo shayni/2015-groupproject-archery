@@ -1,7 +1,7 @@
 package archery;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 import javax.imageio.ImageIO;
 
 public class ClientBowAndArrow implements Serializable{
-	BufferedImage picture;
+	private Image picture;
 	private int x;
 	private int y;
 	private int width;

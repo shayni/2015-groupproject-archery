@@ -1,6 +1,8 @@
 package archery;
 
-public class GameLoopThread extends Thread {
+import java.io.Serializable;
+
+public class GameLoopThread extends Thread implements Serializable{
 
 	private World world;
 	private ServerArcheryFrame frame;

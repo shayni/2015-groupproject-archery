@@ -1,10 +1,11 @@
 package archery;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class Server implements  Serializable{
 
 	private ServerSocket serverSocket;
 	private ServerThread thread;

@@ -10,10 +10,11 @@ import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 
 import javax.swing.JFrame;
 
-public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener {
+public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener,  Serializable {
 
 	private Server server;
 	private World world;
@@ -138,21 +139,19 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			}
 			break;
 		}
-	/*	PersonMoves moves = new PersonMoves(person, arrow);
-		ObjectOutputStream output;
-		try {
-			output = new ObjectOutputStream(server.getSocketThread().getOutput());
-			output.writeObject(moves);
-			output.flush();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}*/
-		 PrintWriter writer = server.getSocketThread().getOut();
-		 writer.println(person.getX());
-		 writer.println(person.getY());
-		 writer.println(arrow.getX());
-		 writer.println(arrow.getY());
-		 writer.flush();
+		/*
+		 * PersonMoves moves = new PersonMoves(person, arrow);
+		 * ObjectOutputStream output; try { output = new
+		 * ObjectOutputStream(server.getSocketThread().getOutput());
+		 * output.writeObject(moves); output.flush(); } catch (IOException e1) {
+		 * e1.printStackTrace(); }
+		 */
+		PrintWriter writer = server.getSocketThread().getOut();
+		writer.println(person.getX());
+		writer.println(person.getY());
+		writer.println(arrow.getX());
+		writer.println(arrow.getY());
+		writer.flush();
 	}
 
 	@Override
@@ -198,9 +197,9 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			System.out.println("released");
-			//released = true;
+			// released = true;
 			world.getSerArrow().move();
-			ArrowReleased arrowReleased = new ArrowReleased(world.getSerArrow());
+			ArrowReleased arrowReleased = new ArrowReleased(world.getSerArrow(), world);
 			ObjectOutputStream output = server.getSocketThread().getOutput();
 			try {
 				output.writeObject(arrowReleased);
