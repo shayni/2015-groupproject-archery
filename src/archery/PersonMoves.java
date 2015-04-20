@@ -2,24 +2,24 @@ package archery;
 
 import java.io.Serializable;
 
-public class PersonMoves implements Messages, Serializable{
+public class PersonMoves implements Messages, Serializable {
 
 	private Person person;
-	private ServerBowAndArrow arrow;
+	private Arrow arrow;
 
-	public PersonMoves(Person person, ServerBowAndArrow arrow) {
+	public PersonMoves(Person person, Arrow arrow) {
 		this.person = person;
 		this.arrow = arrow;
 	}
 
 	@Override
 	public void perform() {
-		
+
 		person.setY(person.getY());
-		arrow.setY(arrow.getY());
+		arrow.setY1(arrow.getY1());
 		person.setX(person.getX());
-		arrow.setX(arrow.getX());
-		
+		arrow.setX1(arrow.getX1());
+
 	}
 
 }

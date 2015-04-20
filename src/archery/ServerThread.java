@@ -1,27 +1,26 @@
 package archery;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ServerThread extends Thread {
 
 	private Socket socket;
-	private BufferedReader reader;
-	private PrintWriter out;
+	// private BufferedReader reader;
+	// private PrintWriter out;
 	private Person person;
 	private ClientBowAndArrow arrow;
 	private ObjectOutputStream output;
+	private ObjectInputStream input;
 
-	public ServerThread(Socket socket, Person person, ClientBowAndArrow arrow) {
+	public ServerThread(Socket socket, Person person, ClientBowAndArrow arrow) throws IOException {
 		this.socket = socket;
 		this.person = person;
 		this.arrow = arrow;
+		output = new ObjectOutputStream(socket.getOutputStream());
 	}
 
 	@Override
@@ -30,29 +29,32 @@ public class ServerThread extends Thread {
 		InputStream in;
 		try {
 			in = socket.getInputStream();
-			reader = new BufferedReader(new InputStreamReader(in));
-			out = new PrintWriter(socket.getOutputStream(), true);
-			output = new ObjectOutputStream(socket.getOutputStream());
-			String inputLine;
+			// reader = new BufferedReader(new InputStreamReader(in));
+			// out = new PrintWriter(socket.getOutputStream(), true);
+			input = new ObjectInputStream(in);
 
-			while ((inputLine = reader.readLine()) != null) {
+			Messages msg = (Messages) input.readObject();
+			msg.perform();
+			// String inputLine;
 
-				person.setX(Integer.valueOf(inputLine));
-				person.setY(Integer.valueOf(reader.readLine()));
-				arrow.setX(Integer.valueOf(reader.readLine()));
-				arrow.setY(Integer.valueOf(reader.readLine()));
-			}
+			/*
+			 * while ((inputLine = reader.readLine()) != null) {
+			 * 
+			 * person.setX(Integer.valueOf(inputLine));
+			 * person.setY(Integer.valueOf(reader.readLine()));
+			 * arrow.setX(Integer.valueOf(reader.readLine()));
+			 * arrow.setY(Integer.valueOf(reader.readLine())); }
+			 */
 
-		} catch (IOException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public PrintWriter getOut() {
-		return out;
-	}
-
+	/*
+	 * public PrintWriter getOut() { return out; }
+	 */
 	public ObjectOutputStream getOutput() {
 		return output;
 	}

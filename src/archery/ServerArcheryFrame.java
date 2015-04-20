@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 
 import javax.swing.JFrame;
 
@@ -19,6 +18,8 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 	private World world;
 	private double mid;
 	private boolean released;
+
+	private ObjectOutputStream output;
 
 	public ServerArcheryFrame() throws IOException {
 		// this.setSize(800, 600);
@@ -37,8 +38,11 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		this.setVisible(true);
 		server = new Server(world.getClientPerson(), world.getClientArrow());
+
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
+		// output = new
+		// ObjectOutputStream(server.getSocketThread().getOutput());
 	}
 
 	MouseAdapter adapter = new MouseAdapter() {
@@ -107,52 +111,60 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 	@Override
 	public void keyPressed(KeyEvent e) {
 		Person person = world.getServerPerson();
-		ServerBowAndArrow arrow = world.getServerArrow();
+		Arrow arrow = world.getSerArrow();
+		// ServerBowAndArrow arrow = world.getServerArrow();
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 		case KeyEvent.VK_8:
 			if (person.getY() > 0) {
 				person.setY(person.getY() - 10);
-				arrow.setY(arrow.getY() - 10);
+				arrow.setY1(arrow.getY1() - 10);
+				arrow.setY2(arrow.getY2() - 10);
 			}
 			break;
 		case KeyEvent.VK_DOWN:
 		case KeyEvent.VK_2:
 			if (person.getY() + person.getHeight() < this.getHeight()) {
 				person.setY(person.getY() + 10);
-				arrow.setY(arrow.getY() + 10);
+				arrow.setY1(arrow.getY1() + 10);
+				arrow.setY2(arrow.getY2() + 10);
 			}
 			break;
 		case KeyEvent.VK_RIGHT:
 		case KeyEvent.VK_6:
-			if (arrow.getX() + arrow.getTheWidth() < mid) {
+			int tempX = arrow.getX1();
+			int tempX2 = arrow.getX2();
+			if ((tempX2 - tempX) < mid) {
 				person.setX(person.getX() + 10);
-				arrow.setX(arrow.getX() + 10);
+				arrow.setX1(arrow.getX1() + 10);
+				arrow.setX2(arrow.getX2() + 10);
 			}
 			break;
 		case KeyEvent.VK_LEFT:
 		case KeyEvent.VK_4:
 			if (person.getX() > 0) {
 				person.setX(person.getX() - 10);
-				arrow.setX(arrow.getX() - 10);
+				arrow.setX1(arrow.getX1() - 10);
+				arrow.setX2(arrow.getX2() - 10);
 			}
 			break;
 		}
-	/*	PersonMoves moves = new PersonMoves(person, arrow);
-		ObjectOutputStream output;
+
+		PersonMoves moves = new PersonMoves(person, arrow);
 		try {
 			output = new ObjectOutputStream(server.getSocketThread().getOutput());
 			output.writeObject(moves);
 			output.flush();
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}*/
-		 PrintWriter writer = server.getSocketThread().getOut();
-		 writer.println(person.getX());
-		 writer.println(person.getY());
-		 writer.println(arrow.getX());
-		 writer.println(arrow.getY());
-		 writer.flush();
+		}
+
+		/*
+		 * PrintWriter writer = server.getSocketThread().getOut();
+		 * writer.println(person.getX()); writer.println(person.getY());
+		 * writer.println(arrow.getX()); writer.println(arrow.getY());
+		 * writer.flush();
+		 */
 	}
 
 	@Override
@@ -198,16 +210,18 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			System.out.println("released");
-			//released = true;
+			// released = true;
 			world.getSerArrow().move();
 			ArrowReleased arrowReleased = new ArrowReleased(world.getSerArrow());
-			ObjectOutputStream output = server.getSocketThread().getOutput();
+
 			try {
+				output = new ObjectOutputStream(server.getSocketThread().getOutput());
 				output.writeObject(arrowReleased);
 				output.flush();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+
 		}
 
 	};
