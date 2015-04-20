@@ -3,7 +3,7 @@ package archery;
 public class PerosnHit implements Messages {
 
 	@Override
-	public void perform() {
+	public void perform(World world) {
 
 	}
 

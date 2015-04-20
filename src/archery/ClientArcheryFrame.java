@@ -37,7 +37,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		this.addMouseListener(listern);
 		this.setVisible(true);
 		mid = (this.getWidth() / 2) + 5;
-		client = new Client(world.getServerPerson(), world.getServerArrow());
+		client = new Client(world);
 
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();

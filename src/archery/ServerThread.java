@@ -37,7 +37,8 @@ public class ServerThread extends Thread implements  Serializable {
 			input = new ObjectInputStream(in);
 
 			Messages msg = (Messages) input.readObject();
-			msg.perform();
+			World world = null;
+			msg.perform(world);
 			// String inputLine;
 
 			/*

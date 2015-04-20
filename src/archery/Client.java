@@ -11,11 +11,11 @@ public class Client implements Serializable{
 
 	private ClientThread thread;
 
-	public Client(Person person, ServerBowAndArrow arrow) throws UnknownHostException, IOException {
+	public Client(World world) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 1112);
 
 		if (socket != null) {
-			thread = new ClientThread(socket, person, arrow);
+			thread = new ClientThread(socket, world);
 			thread.start();
 		}
 	}

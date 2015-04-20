@@ -16,14 +16,16 @@ public class ClientThread extends Thread implements Serializable {
 	private PrintWriter out;
 	private Person person;
 	private ServerBowAndArrow arrow;
+	private World world;
 
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
 
-	public ClientThread(Socket socket, Person person, ServerBowAndArrow arrow) throws IOException {
+	public ClientThread(Socket socket, World world) throws IOException {
 		this.socket = socket;
-		this.person = person;
-		this.arrow = arrow;
+		/*this.person = person;
+		this.arrow = arrow;*/
+		this.world = world;
 		output = new ObjectOutputStream(socket.getOutputStream());
 	}
 
@@ -45,7 +47,7 @@ public class ClientThread extends Thread implements Serializable {
 			input = new ObjectInputStream(in);
 			while (true){
 			Messages msg = (Messages) input.readObject();
-			msg.perform();
+			msg.perform(world);
 			System.out.println("i performed!");
 			}
 

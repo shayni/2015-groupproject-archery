@@ -12,10 +12,9 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
-
 import javax.swing.JFrame;
 
-public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener,  Serializable {
+public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener, Serializable {
 
 	private Server server;
 	private World world;
@@ -153,7 +152,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			break;
 		}
 
-
 		PersonMoves moves = new PersonMoves(person, arrow);
 		try {
 			output = new ObjectOutputStream(server.getSocketThread().getOutput());
@@ -219,7 +217,9 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			world.getSerArrow().move();
 
 			ArrowReleased arrowReleased = new ArrowReleased(world.getSerArrow());
-
+			// ArrowReleased arrowReleased = new
+			// ArrowReleased(world.getSerArrow().getX1(),
+			// world.getSerArrow().getX2());
 
 			try {
 				output = new ObjectOutputStream(server.getSocketThread().getOutput());

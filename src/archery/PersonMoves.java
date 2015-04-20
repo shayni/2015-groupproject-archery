@@ -12,7 +12,7 @@ public class PersonMoves implements Messages, Serializable {
 		this.arrow = arrow;
 	}
 
-	@Override
+	//@Override
 	public void perform() {
 
 		person.setY(person.getY());
@@ -20,6 +20,12 @@ public class PersonMoves implements Messages, Serializable {
 		person.setX(person.getX());
 		arrow.setX1(arrow.getX1());
 
+	}
+
+	@Override
+	public void perform(World world) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

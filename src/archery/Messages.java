@@ -2,6 +2,6 @@ package archery;
 
 public interface Messages {
 
-	void perform();
+	void perform(World world);
 
 }
