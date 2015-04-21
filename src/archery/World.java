@@ -19,6 +19,8 @@ public class World extends JComponent implements Serializable, MouseListener {
 	private Arrow serArrow;
 	private Arrow cliArrow;
 	private boolean released;
+	private boolean serverOut;
+	private boolean clientOut;
 
 	public void setReleased(boolean released) {
 		this.released = released;
@@ -37,6 +39,8 @@ public class World extends JComponent implements Serializable, MouseListener {
 		int y = serverPerson.getY() + 90;
 		int cx = clientPerson.getX();
 		int cy = clientPerson.getY() + 90;
+		serverOut = false;
+		clientOut = false;
 		// serverArrow = new ServerBowAndArrow(x, y);
 		// clientArrow = new ClientBowAndArrow(cx, cy);
 		// serArrow = new Arrow(serverArrow.getX(), serverArrow.getY() +
@@ -76,6 +80,11 @@ public class World extends JComponent implements Serializable, MouseListener {
 		serArrow.draw(g);
 		System.out.println("world: " + serArrow.getX1() + " " + serArrow.getX2());
 		cliArrow.draw(g);
+		if (serverOut) {
+			g.drawString("You are dead!", serverPerson.getX(), serverPerson.getY());
+		} else if (clientOut) {
+			g.drawString("You are dead!", clientPerson.getX(), clientPerson.getY());
+		}
 	}
 
 	public Arrow getSerArrow() {
@@ -86,34 +95,42 @@ public class World extends JComponent implements Serializable, MouseListener {
 		return cliArrow;
 	}
 
+	public void setServerOut(boolean b) {
+		serverOut = b;
+	}
+
+	public void setClientOut(boolean b) {
+		clientOut = b;
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		released = true;
-		
+
 	}
 
 }

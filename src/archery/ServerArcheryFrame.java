@@ -6,11 +6,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.io.Serializable;
 
 import javax.swing.JFrame;
 
@@ -22,6 +19,18 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 	private double mid;
 	private boolean released;
 	private ObjectOutputStream output;
+	private int numbOuts;
+
+	public void setNumbOuts() {
+		numbOuts++;
+	}
+
+	public boolean gameOver() {
+		if (numbOuts == 4) {
+			return true;
+		}
+		return false;
+	}
 
 	public ServerArcheryFrame() throws IOException {
 		this.setExtendedState(this.MAXIMIZED_BOTH);
@@ -33,12 +42,14 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 
 		mid = (this.getWidth() / 2) - 5;
 
+		numbOuts = 0;
+
 		world = new World(this);
 		add(world);
 		this.addKeyListener(this);
 		addMouseListener(world);
-		//this.addMouseMotionListener(adapter);
-		//this.addMouseListener(listener);
+		// this.addMouseMotionListener(adapter);
+		// this.addMouseListener(listener);
 
 		this.setVisible(true);
 		server = new Server(world);
@@ -100,8 +111,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 		public void mouseReleased(MouseEvent e) {
 		}
 	};
-
-
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -166,14 +175,13 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 
 	}
 
-/*	@Override
-	public void mouseDragged(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-
-	}*/
+	/*
+	 * @Override public void mouseDragged(MouseEvent e) { }
+	 * 
+	 * @Override public void mouseMoved(MouseEvent arg0) {
+	 * 
+	 * }
+	 */
 
 	MouseListener listener = new MouseListener() {
 
@@ -195,30 +203,22 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			//released = true;
-		/*	JFrame frame = getFrame();
-			Arrow arrow = world.getSerArrow();
-			int x = arrow.getX1();
-			while (x < frame.getWidth()) {
-				arrow.moveServer();
-				ArrowReleased arrowReleased = new ArrowReleased(arrow);
-
-				try {
-					output.writeObject(arrowReleased);
-					output.flush();
-					output.reset();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				x = arrow.getX1();
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e1) {
-
-					e1.printStackTrace();
-				}
-
-			}*/
+			// released = true;
+			/*
+			 * JFrame frame = getFrame(); Arrow arrow = world.getSerArrow(); int
+			 * x = arrow.getX1(); while (x < frame.getWidth()) {
+			 * arrow.moveServer(); ArrowReleased arrowReleased = new
+			 * ArrowReleased(arrow);
+			 * 
+			 * try { output.writeObject(arrowReleased); output.flush();
+			 * output.reset(); } catch (IOException e1) { e1.printStackTrace();
+			 * } x = arrow.getX1(); try { Thread.sleep(1000); } catch
+			 * (InterruptedException e1) {
+			 * 
+			 * e1.printStackTrace(); }
+			 * 
+			 * }
+			 */
 		}
 
 	};

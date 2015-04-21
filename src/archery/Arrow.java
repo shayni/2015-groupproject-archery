@@ -3,8 +3,6 @@ package archery;
 import java.awt.Graphics;
 import java.io.Serializable;
 
-import javax.swing.JFrame;
-
 public class Arrow implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,14 +23,14 @@ public class Arrow implements Serializable {
 	}
 
 	public void moveClient() {
-		setX1(x1 - 100);
-		setX2(x2 - 100);
+		setX1(x1 - 1);
+		setX2(x2 - 1);
 
 	}
 
 	public void moveServer() {
-		setX1(x1 + 100);
-		setX2(x2 + 100);
+		setX1(x1 + 1);
+		setX2(x2 + 1);
 
 	}
 

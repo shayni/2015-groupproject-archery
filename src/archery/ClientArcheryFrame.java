@@ -18,6 +18,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseList
 	private Client client;
 	private double mid;
 	private boolean released;
+	private int numbOuts;
 
 	private ObjectOutputStream output;
 
@@ -32,6 +33,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseList
 		add(world);
 		this.addKeyListener(this);
 		addMouseListener(world);
+		numbOuts = 0;
 		// this.addMouseMotionListener(adapter);
 		// this.addMouseListener(listener);
 		this.setVisible(true);
@@ -40,6 +42,17 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseList
 		output = client.getClientThread().getOutput();
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
+	}
+
+	public void setNumbOuts() {
+		numbOuts++;
+	}
+
+	public boolean gameOver() {
+		if (numbOuts == 4) {
+			return true;
+		}
+		return false;
 	}
 
 	MouseAdapter adapter = new MouseAdapter() {
