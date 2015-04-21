@@ -1,6 +1,7 @@
 package archery;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -19,6 +20,8 @@ public class World extends JComponent implements Serializable, MouseListener {
 	private Arrow serArrow;
 	private Arrow cliArrow;
 	private boolean released;
+	private int numServerOuts;
+	private int numClientOuts;
 	private boolean serverOut;
 	private boolean clientOut;
 
@@ -39,6 +42,8 @@ public class World extends JComponent implements Serializable, MouseListener {
 		int y = serverPerson.getY() + 90;
 		int cx = clientPerson.getX();
 		int cy = clientPerson.getY() + 90;
+		numServerOuts = 0;
+		numClientOuts = 0;
 		serverOut = false;
 		clientOut = false;
 		// serverArrow = new ServerBowAndArrow(x, y);
@@ -63,6 +68,14 @@ public class World extends JComponent implements Serializable, MouseListener {
 		return clientPerson;
 	}
 
+	public void setNumServerOuts() {
+		numServerOuts = numServerOuts + 1;
+	}
+
+	public void setNumClientOuts() {
+		numClientOuts = numClientOuts + 1;
+	}
+
 	/*
 	 * public ServerBowAndArrow getServerArrow() { return serverArrow; }
 	 * 
@@ -78,8 +91,9 @@ public class World extends JComponent implements Serializable, MouseListener {
 		// clientArrow.draw(g);
 		g.setColor(Color.GREEN);
 		serArrow.draw(g);
-		System.out.println("world: " + serArrow.getX1() + " " + serArrow.getX2());
 		cliArrow.draw(g);
+		g.setColor(Color.RED);
+		g.setFont(new Font("Kristen ITC", Font.BOLD, 30));
 		if (serverOut) {
 			g.drawString("You are dead!", serverPerson.getX(), serverPerson.getY());
 		} else if (clientOut) {
@@ -95,12 +109,20 @@ public class World extends JComponent implements Serializable, MouseListener {
 		return cliArrow;
 	}
 
-	public void setServerOut(boolean b) {
-		serverOut = b;
+	public int getNumServerOuts() {
+		return numServerOuts;
 	}
 
-	public void setClientOut(boolean b) {
-		clientOut = b;
+	public int getNumClientOuts() {
+		return numClientOuts;
+	}
+
+	public void setServerOut() {
+		serverOut = true;
+	}
+
+	public void setClientOut() {
+		clientOut = true;
 	}
 
 	@Override

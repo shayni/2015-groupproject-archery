@@ -35,12 +35,12 @@ public class GameLoopThread extends Thread {
 
 				int start = clientPerson.getX();
 				int top = clientPerson.getY();
-				int bottom = clientPerson.getY() + serverPerson.getHeight();
+				int bottom = clientPerson.getY() + clientPerson.getHeight();
 
 				if (frame2 == null) {
 					Arrow arrow = world.getSerArrow();
 					int x = arrow.getX1();
-					int x2 = arrow.getX2();
+
 					while (x < frame.getWidth()) {
 
 						arrow.moveServer();
@@ -60,11 +60,20 @@ public class GameLoopThread extends Thread {
 
 							Thread.sleep(1);
 							world.repaint();
-							if (x2 > start && x2 > top && x2 < bottom) {
-								frame.setNumbOuts();
+							int x2 = arrow.getX2();
+							int y2 = arrow.getY2();
+							if (x2 > start && y2 > top && y2 < bottom) {
+								world.setNumClientOuts();
+								if (world.getNumClientOuts() == 4) {
+									world.setClientOut();
+									ClientGameOver gameOver = new ClientGameOver();
+									output.writeObject(gameOver);
+									output.flush();
+									output.reset();
+								}
 								break;
 							}
-						} catch (InterruptedException e) {
+						} catch (InterruptedException | IOException e) {
 							e.printStackTrace();
 						}
 					}
@@ -82,12 +91,14 @@ public class GameLoopThread extends Thread {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					if (frame.gameOver()) {
-						world.setServerOut(true);
-					}
+
 				} else {
+					int start2 = serverPerson.getX() + serverPerson.getWidth();
+					int top2 = serverPerson.getY();
+					int bottom2 = serverPerson.getY() + serverPerson.getHeight();
 					Arrow arrow2 = world.getCliArrow();
 					int x2 = arrow2.getX1();
+
 					while (x2 > 0) {
 						arrow2.moveClient();
 						try {
@@ -103,10 +114,22 @@ public class GameLoopThread extends Thread {
 								e1.printStackTrace();
 							}
 							x2 = arrow2.getX1();
-
+							int x3 = arrow2.getX2();
+							int y3 = arrow2.getY2();
+							if (x3 < start2 && y3 > top2 && y3 < bottom2) {
+								world.setNumServerOuts();
+								if (world.getNumServerOuts() == 4) {
+									world.setServerOut();
+									ServerGameOver gameOver = new ServerGameOver();
+									output.writeObject(gameOver);
+									output.flush();
+									output.reset();
+								}
+								break;
+							}
 							Thread.sleep(1);
 							world.repaint();
-						} catch (InterruptedException e) {
+						} catch (InterruptedException | IOException e) {
 							e.printStackTrace();
 						}
 
@@ -125,9 +148,7 @@ public class GameLoopThread extends Thread {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					if (frame2.gameOver()) {
-						world.setClientOut(true);
-					}
+
 				}
 			}
 			world.setReleased(false);

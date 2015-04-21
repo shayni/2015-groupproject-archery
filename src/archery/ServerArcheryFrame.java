@@ -19,18 +19,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 	private double mid;
 	private boolean released;
 	private ObjectOutputStream output;
-	private int numbOuts;
-
-	public void setNumbOuts() {
-		numbOuts++;
-	}
-
-	public boolean gameOver() {
-		if (numbOuts == 4) {
-			return true;
-		}
-		return false;
-	}
 
 	public ServerArcheryFrame() throws IOException {
 		this.setExtendedState(this.MAXIMIZED_BOTH);
@@ -41,8 +29,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 		this.setVisible(true);
 
 		mid = (this.getWidth() / 2) - 5;
-
-		numbOuts = 0;
 
 		world = new World(this);
 		add(world);
