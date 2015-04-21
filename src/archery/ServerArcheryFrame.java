@@ -14,8 +14,9 @@ import java.io.Serializable;
 
 import javax.swing.JFrame;
 
-public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener, Serializable {
+public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener {
 
+	private static final long serialVersionUID = 1L;
 	private Server server;
 	private World world;
 	private double mid;
@@ -23,7 +24,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 	private ObjectOutputStream output;
 
 	public ServerArcheryFrame() throws IOException {
-		// this.setSize(800, 600);
 		this.setExtendedState(this.MAXIMIZED_BOTH);
 		this.setTitle("server archery");
 
@@ -37,7 +37,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		add(world);
 		this.addKeyListener(this);
 		this.addMouseMotionListener(adapter);
-		this.addMouseListener(listern);
+		this.addMouseListener(listener);
 
 		this.setVisible(true);
 		server = new Server(world);
@@ -45,8 +45,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
-		// output = new
-		// ObjectOutputStream(server.getSocketThread().getOutput());
 	}
 
 	MouseAdapter adapter = new MouseAdapter() {
@@ -95,10 +93,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		}
 
 		public void mouseReleased(MouseEvent e) {
-
-			// world.getSerArrow().setX1(world.getSerArrow().getX1()+10);
-			// world.getSerArrow().setX2(world.getSerArrow().getX2()+10);
-
 		}
 	};
 
@@ -156,8 +150,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		PersonMoves moves = new PersonMoves(person, arrow);
 		try {
-			// output = new
-			// ObjectOutputStream(server.getSocketThread().getOutput());
 			output.writeObject(moves);
 			output.flush();
 			output.reset();
@@ -165,30 +157,20 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			e1.printStackTrace();
 		}
 
-		/*
-		 * PrintWriter writer = server.getSocketThread().getOut();
-		 * writer.println(person.getX()); writer.println(person.getY());
-		 * writer.println(arrow.getX()); writer.println(arrow.getY());
-		 * writer.flush();
-		 */
-
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// System.out.println("i moved!");
 	}
 
 	@Override
@@ -196,7 +178,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 	}
 
-	MouseListener listern = new MouseListener() {
+	MouseListener listener = new MouseListener() {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -216,15 +198,9 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			System.out.println("released");
-			// released = true;
 			Arrow arrow = world.getSerArrow();
 			arrow.moveServer();
-
 			ArrowReleased arrowReleased = new ArrowReleased(arrow);
-			// ArrowReleased arrowReleased = new
-			// ArrowReleased(world.getSerArrow().getX1(),
-			// world.getSerArrow().getX2());
 
 			try {
 				output.writeObject(arrowReleased);

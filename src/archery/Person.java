@@ -1,19 +1,15 @@
 package archery;
 
 import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 public class Person extends JComponent implements Serializable {
 
-	// private JLabel label;
-	private Image picture; // = ImageIO.read(new File("person.jpg"));
+	private static final long serialVersionUID = 1L;
 	private ImageIcon icon;
 	private int x;
 	private int y;
@@ -23,13 +19,9 @@ public class Person extends JComponent implements Serializable {
 	public Person(int x, int y) throws IOException {
 		height = 170;
 		width = 120;
-		//picture = ImageIO.read(new File("person.jpg"));
 		icon = new ImageIcon("man2.jpg");
-		//icon= new ImageIcon(picture.getScaledInstance(width, height, Image.SCALE_SMOOTH));
-		
 		this.x = x;
 		this.y = y;
-		
 
 	}
 
@@ -41,25 +33,27 @@ public class Person extends JComponent implements Serializable {
 		this.y = y;
 	}
 
+	@Override
 	public int getX() {
 		return x;
 	}
 
+	@Override
 	public int getY() {
 		return y;
 	}
 
+	@Override
 	public int getHeight() {
 		return height;
 	}
 
+	@Override
 	public int getWidth() {
 		return width;
 	}
 
 	public void draw(Graphics g) {
-		//g.drawImage(picture, x, y, width, height, null);
-
 		icon.paintIcon(this, g, x, y);
 	}
 

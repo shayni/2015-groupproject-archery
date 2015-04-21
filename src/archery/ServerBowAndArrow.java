@@ -12,15 +12,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-public class ServerBowAndArrow extends JComponent implements MouseMotionListener, Serializable {
+public class ServerBowAndArrow extends JComponent implements Serializable {
 
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
+	private static final long serialVersionUID = 1L;
 
 	private Image picture;
 	private int x;
@@ -30,16 +24,15 @@ public class ServerBowAndArrow extends JComponent implements MouseMotionListener
 	private ImageIcon icon;
 
 	public ServerBowAndArrow(int x, int y) throws IOException {
-		
+
 		width = 90;
 		height = 120;
 		picture = ImageIO.read(new File("bowandarrow.png"));
-		icon= new ImageIcon(picture.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		icon = new ImageIcon(picture.getScaledInstance(width, height, Image.SCALE_SMOOTH));
 
 		this.x = x;
 		this.y = y;
-		
-		
+
 	}
 
 	public int getX() {
@@ -57,26 +50,22 @@ public class ServerBowAndArrow extends JComponent implements MouseMotionListener
 	public void setY(int y) {
 		this.y = y;
 	}
-	public int getTheWidth(){
+
+	public int getTheWidth() {
 		return width;
 	}
-	
+
 	public void draw(Graphics g) {
 
-		//g.drawImage(picture, x, y, width, height, null);
 		icon.paintIcon(this, g, x, y);
 	}
 
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		System.out.println(" i moved");
-
+	public int getWidth() {
+		return width;
 	}
 
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+	public int getHeight() {
+		return height;
 	}
 
 }

@@ -1,59 +1,34 @@
 package archery;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.io.Serializable;
 import java.net.Socket;
 
-public class ClientThread extends Thread implements Serializable {
+public class ClientThread extends Thread {
 
 	
-	private static final long serialVersionUID = 1L;
-	private Socket socket;
-	private BufferedReader reader;
-	private PrintWriter out;
-	private Person person;
-	private ServerBowAndArrow arrow;
 	private World world;
-
+	private Socket socket;
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
 
 	public ClientThread(Socket socket, World world) throws IOException {
 		this.socket = socket;
-		/*
-		 * this.person = person; this.arrow = arrow;
-		 */
 		this.world = world;
-		 output = new ObjectOutputStream(socket.getOutputStream());
+		output = new ObjectOutputStream(socket.getOutputStream());
 		InputStream in = socket.getInputStream();
 		input = new ObjectInputStream(in);
 	}
-
-	
-
-	
 
 	public ObjectOutputStream getOutput() {
 		return output;
 	}
 
-
-
-
-
 	@Override
 	public void run() {
-
-		//InputStream in;
 		try {
-			//in = socket.getInputStream();
-			// reader = new BufferedReader(new InputStreamReader(in));
-		//	input = new ObjectInputStream(in);
 			while (true) {
 				Messages msg = (Messages) input.readObject();
 				msg.perform(world);

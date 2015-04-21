@@ -1,8 +1,8 @@
 package archery;
 
-import java.io.Serializable;
 
-public class GameLoopThread extends Thread implements Serializable{
+
+public class GameLoopThread extends Thread {
 
 	private World world;
 	private ServerArcheryFrame frame;
@@ -18,6 +18,7 @@ public class GameLoopThread extends Thread implements Serializable{
 		this.frame2 = frame2;
 	}
 
+	@Override
 	public void run() {
 		while (true) {
 

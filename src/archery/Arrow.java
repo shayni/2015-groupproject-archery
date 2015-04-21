@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 public class Arrow implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 	private int x1;
 	private int y1;
@@ -24,18 +23,15 @@ public class Arrow implements Serializable {
 	}
 
 	public void moveClient() {
-		System.out.println("Hello1");
 		setX1(x1 - 100);
-		System.out.println("Hello2");
 		setX2(x2 - 100);
-		
+
 	}
+
 	public void moveServer() {
-		System.out.println("Hello1");
 		setX1(x1 + 100);
-		System.out.println("Hello2");
 		setX2(x2 + 100);
-		
+
 	}
 
 	public int getX1() {
@@ -43,9 +39,7 @@ public class Arrow implements Serializable {
 	}
 
 	public void setX1(int x1) {
-		System.out.println("Hello3");
 		this.x1 = x1;
-		System.out.println(x1);
 	}
 
 	public int getY1() {
@@ -61,9 +55,8 @@ public class Arrow implements Serializable {
 	}
 
 	public void setX2(int x2) {
-		System.out.println("Hello4");
 		this.x2 = x2;
-		System.out.println(x2);
+
 	}
 
 	public int getY2() {

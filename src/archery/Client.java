@@ -1,13 +1,10 @@
 package archery;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javax.swing.JTextArea;
-
-public class Client implements Serializable{
+public class Client {
 
 	private ClientThread thread;
 
