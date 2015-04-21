@@ -6,12 +6,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+
 import javax.swing.JFrame;
 
-public class ClientArcheryFrame extends JFrame implements KeyListener {
+public class ClientArcheryFrame extends JFrame implements KeyListener, MouseListener {
 
 	private static final long serialVersionUID = 1L;
 	private World world;
@@ -26,14 +26,14 @@ public class ClientArcheryFrame extends JFrame implements KeyListener {
 		this.setTitle("client archery");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.WHITE);
-		//this.setBackground(Color.GREEN);
+		// this.setBackground(Color.GREEN);
 		this.setVisible(true);
 		world = new World(this);
 		add(world);
 		this.addKeyListener(this);
 		addMouseListener(world);
-		//this.addMouseMotionListener(adapter);
-		//this.addMouseListener(listener);
+		// this.addMouseMotionListener(adapter);
+		// this.addMouseListener(listener);
 		this.setVisible(true);
 		mid = (this.getWidth() / 2) + 5;
 		client = new Client(world);
@@ -92,44 +92,34 @@ public class ClientArcheryFrame extends JFrame implements KeyListener {
 		}
 	};
 
-/*	MouseListener listener = new MouseListener() {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			Arrow arrow = world.getCliArrow();
-			arrow.moveClient();
-			ClientArrowReleases arrowReleased = new ClientArrowReleases(arrow);
-
-			try {
-				output.writeObject(arrowReleased);
-				output.flush();
-				output.reset();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
-
-	};*/
+	/*
+	 * MouseListener listener = new MouseListener() {
+	 * 
+	 * @Override public void mouseClicked(MouseEvent e) {
+	 * 
+	 * }
+	 * 
+	 * @Override public void mouseEntered(MouseEvent e) {
+	 * 
+	 * }
+	 * 
+	 * @Override public void mouseExited(MouseEvent e) {
+	 * 
+	 * }
+	 * 
+	 * @Override public void mousePressed(MouseEvent e) {
+	 * 
+	 * }
+	 * 
+	 * @Override public void mouseReleased(MouseEvent e) { Arrow arrow =
+	 * world.getCliArrow(); arrow.moveClient(); ClientArrowReleases
+	 * arrowReleased = new ClientArrowReleases(arrow);
+	 * 
+	 * try { output.writeObject(arrowReleased); output.flush(); output.reset();
+	 * } catch (IOException e1) { e1.printStackTrace(); } }
+	 * 
+	 * };
+	 */
 
 	public boolean isReleased() {
 		return released;
@@ -201,14 +191,44 @@ public class ClientArcheryFrame extends JFrame implements KeyListener {
 
 	}
 
-/*	@Override
-	public void mouseDragged(MouseEvent arg0) {
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 
-	}*/
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * @Override public void mouseDragged(MouseEvent arg0) {
+	 * 
+	 * }
+	 * 
+	 * @Override public void mouseMoved(MouseEvent arg0) {
+	 * 
+	 * }
+	 */
 
 }
