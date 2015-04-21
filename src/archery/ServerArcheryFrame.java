@@ -198,21 +198,49 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
+			JFrame frame = getFrame();
 			Arrow arrow = world.getSerArrow();
-			arrow.moveServer();
-			ArrowReleased arrowReleased = new ArrowReleased(arrow);
+			int x = arrow.getX1();
+			while (x < frame.getWidth()) {
+				arrow.moveServer();
+				ArrowReleased arrowReleased = new ArrowReleased(arrow);
 
-			try {
-				output.writeObject(arrowReleased);
-				output.flush();
-				output.reset();
-			} catch (IOException e1) {
-				e1.printStackTrace();
+				try {
+					output.writeObject(arrowReleased);
+					output.flush();
+					output.reset();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				x = arrow.getX1();
+			/*	Thread thread = new Thread() {
+					public void run() {
+							try {
+								Thread.sleep(2000);
+							} catch (InterruptedException e) {
+
+								e.printStackTrace();
+							}
+						}
+					
+
+				};*/
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+
+					e1.printStackTrace();
+				}
+				
+
 			}
-
 		}
 
 	};
+
+	public JFrame getFrame() {
+		return this;
+	}
 
 	public boolean isReleased() {
 		return released;

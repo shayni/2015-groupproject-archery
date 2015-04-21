@@ -15,7 +15,6 @@ public class Server {
 		if (socket != null) {
 			thread = new ServerThread(socket, world);
 			thread.start();
-
 		}
 	}
 
