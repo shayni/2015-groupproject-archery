@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 import javax.swing.JFrame;
 
-public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMotionListener {
+public class ServerArcheryFrame extends JFrame implements KeyListener {
 
 	private static final long serialVersionUID = 1L;
 	private Server server;
@@ -36,8 +36,9 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		world = new World(this);
 		add(world);
 		this.addKeyListener(this);
-		this.addMouseMotionListener(adapter);
-		this.addMouseListener(listener);
+		addMouseListener(world);
+		//this.addMouseMotionListener(adapter);
+		//this.addMouseListener(listener);
 
 		this.setVisible(true);
 		server = new Server(world);
@@ -45,6 +46,10 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
+	}
+
+	public Server getServer() {
+		return server;
 	}
 
 	MouseAdapter adapter = new MouseAdapter() {
@@ -96,15 +101,7 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		}
 	};
 
-	public static void main(String[] args) {
-		ServerArcheryFrame frame;
-		try {
-			frame = new ServerArcheryFrame();
-		} catch (IOException e) {
 
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -169,14 +166,14 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 	}
 
-	@Override
+/*	@Override
 	public void mouseDragged(MouseEvent e) {
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
 
-	}
+	}*/
 
 	MouseListener listener = new MouseListener() {
 
@@ -198,7 +195,8 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			JFrame frame = getFrame();
+			//released = true;
+		/*	JFrame frame = getFrame();
 			Arrow arrow = world.getSerArrow();
 			int x = arrow.getX1();
 			while (x < frame.getWidth()) {
@@ -213,27 +211,14 @@ public class ServerArcheryFrame extends JFrame implements KeyListener, MouseMoti
 					e1.printStackTrace();
 				}
 				x = arrow.getX1();
-			/*	Thread thread = new Thread() {
-					public void run() {
-							try {
-								Thread.sleep(2000);
-							} catch (InterruptedException e) {
-
-								e.printStackTrace();
-							}
-						}
-					
-
-				};*/
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
 
 					e1.printStackTrace();
 				}
-				
 
-			}
+			}*/
 		}
 
 	};

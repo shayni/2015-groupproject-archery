@@ -11,8 +11,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import javax.swing.JFrame;
 
-public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMotionListener {
+public class ClientArcheryFrame extends JFrame implements KeyListener {
 
+	private static final long serialVersionUID = 1L;
 	private World world;
 	private Client client;
 	private double mid;
@@ -25,13 +26,14 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		this.setTitle("client archery");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.WHITE);
-		this.setBackground(Color.GREEN);
+		//this.setBackground(Color.GREEN);
 		this.setVisible(true);
 		world = new World(this);
 		add(world);
 		this.addKeyListener(this);
-		this.addMouseMotionListener(adapter);
-		this.addMouseListener(listener);
+		addMouseListener(world);
+		//this.addMouseMotionListener(adapter);
+		//this.addMouseListener(listener);
 		this.setVisible(true);
 		mid = (this.getWidth() / 2) + 5;
 		client = new Client(world);
@@ -90,7 +92,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 		}
 	};
 
-	MouseListener listener = new MouseListener() {
+/*	MouseListener listener = new MouseListener() {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -127,20 +129,14 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 			}
 		}
 
-	};
+	};*/
 
 	public boolean isReleased() {
 		return released;
 	}
 
-	public static void main(String[] args) {
-		ClientArcheryFrame frame;
-		try {
-			frame = new ClientArcheryFrame();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public Client getClient() {
+		return client;
 	}
 
 	@Override
@@ -205,7 +201,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 
 	}
 
-	@Override
+/*	@Override
 	public void mouseDragged(MouseEvent arg0) {
 
 	}
@@ -213,6 +209,6 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseMoti
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
 
-	}
+	}*/
 
 }

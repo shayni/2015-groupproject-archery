@@ -3,6 +3,8 @@ package archery;
 import java.awt.Graphics;
 import java.io.Serializable;
 
+import javax.swing.JFrame;
+
 public class Arrow implements Serializable {
 
 	private static final long serialVersionUID = 1L;

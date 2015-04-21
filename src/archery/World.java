@@ -2,13 +2,15 @@ package archery;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-public class World extends JComponent implements Serializable {
+public class World extends JComponent implements Serializable, MouseListener {
 
 	private Person serverPerson;
 	private Person clientPerson;
@@ -16,6 +18,15 @@ public class World extends JComponent implements Serializable {
 	// private ClientBowAndArrow clientArrow;
 	private Arrow serArrow;
 	private Arrow cliArrow;
+	private boolean released;
+
+	public void setReleased(boolean released) {
+		this.released = released;
+	}
+
+	public boolean isReleased() {
+		return released;
+	}
 
 	public World(JFrame frame) throws IOException {
 		int h = frame.getHeight();
@@ -73,6 +84,36 @@ public class World extends JComponent implements Serializable {
 
 	public Arrow getCliArrow() {
 		return cliArrow;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		released = true;
+		
 	}
 
 }
