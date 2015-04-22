@@ -124,10 +124,10 @@ public class GameLoopThread extends Thread {
 							if (x3 < start2 && y3 > top2 && y3 < bottom2) {
 								world.setNumServerOuts();
 								frame2.getServerLabel().setText("Server outs: " + world.getNumServerOuts());
-								ServerPersonHit personHit = new ServerPersonHit(frame.getServerLabel());
+								/*ServerPersonHit personHit = new ServerPersonHit(frame.getServerLabel());
 								output.writeObject(personHit);
 								output.flush();
-								output.reset();
+								output.reset();*/
 								if (world.getNumServerOuts() == 4) {
 									world.setServerOut();
 									ServerGameOver gameOver = new ServerGameOver();
@@ -152,6 +152,7 @@ public class GameLoopThread extends Thread {
 					arrow2.setY2(y1);
 					ReplaceClientArrow replace = new ReplaceClientArrow(arrow2);
 					try {
+						System.out.println("sending replacement arrow");
 						output.writeObject(replace);
 						output.flush();
 						output.reset();
