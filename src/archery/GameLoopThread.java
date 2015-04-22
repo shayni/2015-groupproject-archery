@@ -66,7 +66,9 @@ public class GameLoopThread extends Thread {
 								world.setNumClientOuts();
 								frame.getClientLabel().setText("Client outs: " + world.getNumClientOuts());
 								ClientPersonHit personHit = new ClientPersonHit(world.getNumClientOuts());
-								personHit.perform(world);
+								output.writeObject(personHit);
+								output.flush();
+								output.reset();
 								if (world.getNumClientOuts() == 4) {
 									world.setClientOut();
 									ClientGameOver gameOver = new ClientGameOver();
@@ -123,7 +125,9 @@ public class GameLoopThread extends Thread {
 								world.setNumServerOuts();
 								frame2.getServerLabel().setText("Server outs: " + world.getNumServerOuts());
 								ServerPersonHit personHit = new ServerPersonHit(frame.getServerLabel());
-								personHit.perform(world);
+								output.writeObject(personHit);
+								output.flush();
+								output.reset();
 								if (world.getNumServerOuts() == 4) {
 									world.setServerOut();
 									ServerGameOver gameOver = new ServerGameOver();
