@@ -1,6 +1,9 @@
 package archery;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -10,6 +13,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class ServerArcheryFrame extends JFrame implements KeyListener {
 
@@ -19,6 +25,8 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 	private double mid;
 	private boolean released;
 	private ObjectOutputStream output;
+	private JLabel serverLabel;
+	private JLabel clientLabel;
 
 	public ServerArcheryFrame() throws IOException {
 		this.setExtendedState(this.MAXIMIZED_BOTH);
@@ -31,11 +39,22 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 		mid = (this.getWidth() / 2) - 5;
 
 		world = new World(this);
-		add(world);
+		// add(world);
 		this.addKeyListener(this);
 		addMouseListener(world);
 		// this.addMouseMotionListener(adapter);
 		// this.addMouseListener(listener);
+		serverLabel = new JLabel("Server outs: " + world.getNumServerOuts(), SwingConstants.CENTER);
+		clientLabel = new JLabel("Client outs: " + world.getNumServerOuts(), SwingConstants.CENTER);
+
+		Container container = getContentPane();
+		container.setLayout(new BorderLayout());
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 0));
+		panel.add(serverLabel);
+		panel.add(clientLabel);
+		container.add(world, BorderLayout.CENTER);
+		container.add(panel, BorderLayout.NORTH);
 
 		this.setVisible(true);
 		server = new Server(world);
@@ -43,6 +62,14 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
+	}
+
+	public JLabel getServerLabel() {
+		return serverLabel;
+	}
+
+	public JLabel getClientLabel() {
+		return clientLabel;
 	}
 
 	public Server getServer() {

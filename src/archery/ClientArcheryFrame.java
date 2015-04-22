@@ -1,6 +1,9 @@
 package archery;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -10,6 +13,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class ClientArcheryFrame extends JFrame implements KeyListener, MouseListener {
 
@@ -18,6 +24,8 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseList
 	private Client client;
 	private double mid;
 	private boolean released;
+	private JLabel serverLabel;
+	private JLabel clientLabel;
 
 	private ObjectOutputStream output;
 
@@ -26,10 +34,23 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseList
 		this.setTitle("client archery");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.getContentPane().setBackground(Color.WHITE);
+		Container container = getContentPane();
+		container.setLayout(new BorderLayout());
 		// this.setBackground(Color.GREEN);
 		this.setVisible(true);
 		world = new World(this);
-		add(world);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 0));
+
+		serverLabel = new JLabel("Server outs: " + world.getNumServerOuts(), SwingConstants.CENTER);
+		clientLabel = new JLabel("Client outs: " + world.getNumServerOuts(), SwingConstants.CENTER);
+
+		panel.add(serverLabel);
+		panel.add(clientLabel);
+
+		container.add(world, BorderLayout.CENTER);
+		container.add(panel, BorderLayout.NORTH);
 		this.addKeyListener(this);
 		addMouseListener(world);
 
@@ -41,6 +62,14 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseList
 		output = client.getClientThread().getOutput();
 		GameLoopThread t = new GameLoopThread(world, this);
 		t.start();
+	}
+
+	public JLabel getServerLabel() {
+		return serverLabel;
+	}
+
+	public JLabel getClientLabel() {
+		return clientLabel;
 	}
 
 	MouseAdapter adapter = new MouseAdapter() {

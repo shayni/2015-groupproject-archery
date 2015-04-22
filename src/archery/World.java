@@ -24,6 +24,7 @@ public class World extends JComponent implements Serializable, MouseListener {
 	private int numClientOuts;
 	private boolean serverOut;
 	private boolean clientOut;
+	private JFrame frame;
 
 	public void setReleased(boolean released) {
 		this.released = released;
@@ -34,6 +35,7 @@ public class World extends JComponent implements Serializable, MouseListener {
 	}
 
 	public World(JFrame frame) throws IOException {
+		this.frame = frame;
 		int h = frame.getHeight();
 		int w = frame.getWidth();
 		serverPerson = new Person((int) (w * .1), (int) (h * .5));
@@ -153,6 +155,10 @@ public class World extends JComponent implements Serializable, MouseListener {
 	public void mouseReleased(MouseEvent arg0) {
 		released = true;
 
+	}
+
+	public JFrame getFrame() {
+		return frame;
 	}
 
 }
