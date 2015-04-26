@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class World extends JComponent implements Serializable, MouseListener {
 
@@ -25,6 +26,25 @@ public class World extends JComponent implements Serializable, MouseListener {
 	private boolean serverOut;
 	private boolean clientOut;
 	private JFrame frame;
+	private JLabel serverLabel;
+	private JLabel clientLabel;
+	
+
+	public JLabel getServerLabel() {
+		return serverLabel;
+	}
+
+	public void setServerLabel(JLabel serverLabel) {
+		this.serverLabel = serverLabel;
+	}
+
+	public JLabel getClientLabel() {
+		return clientLabel;
+	}
+
+	public void setClientLabel(JLabel clientLabel) {
+		this.clientLabel = clientLabel;
+	}
 
 	public void setReleased(boolean released) {
 		this.released = released;
@@ -34,7 +54,7 @@ public class World extends JComponent implements Serializable, MouseListener {
 		return released;
 	}
 
-	public World(JFrame frame) throws IOException {
+	public World(JFrame frame,JLabel serverLabel,JLabel clientLabel) throws IOException {
 		this.frame = frame;
 		int h = frame.getHeight();
 		int w = frame.getWidth();
@@ -48,6 +68,8 @@ public class World extends JComponent implements Serializable, MouseListener {
 		numClientOuts = 0;
 		serverOut = false;
 		clientOut = false;
+		this.clientLabel = clientLabel;
+		this.serverLabel = serverLabel;
 		// serverArrow = new ServerBowAndArrow(x, y);
 		// clientArrow = new ClientBowAndArrow(cx, cy);
 		// serArrow = new Arrow(serverArrow.getX(), serverArrow.getY() +

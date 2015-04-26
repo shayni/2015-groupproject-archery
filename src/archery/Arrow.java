@@ -1,6 +1,8 @@
 package archery;
 
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.io.Serializable;
 
 public class Arrow implements Serializable {
@@ -10,6 +12,7 @@ public class Arrow implements Serializable {
 	private int y1;
 	private int x2;
 	private int y2;
+	private double angle;
 
 	public Arrow(int x1, int y1, int x2, int y2) {
 		this.x1 = x1;
@@ -65,6 +68,14 @@ public class Arrow implements Serializable {
 
 	public void setY2(int y2) {
 		this.y2 = y2;
+	}
+
+	public void rotate(double angle) {
+		this.angle = angle;
+		AffineTransform rotate = AffineTransform.getRotateInstance(Math.toRadians(angle), (x2- x1),1);
+		AffineTransformOp op = new AffineTransformOp(rotate, AffineTransformOp.TYPE_BILINEAR);
+		 
+		// g.drawImage(op.filter(head, null), point.getHor(), point.getVer(), 20, 20, null);
 	}
 
 }

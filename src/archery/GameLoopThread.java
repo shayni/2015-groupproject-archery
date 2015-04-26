@@ -12,18 +12,27 @@ public class GameLoopThread extends Thread {
 	private ClientArcheryFrame frame2;
 	private boolean released;
 	private ObjectOutputStream output;
+	
 
-	public GameLoopThread(World world, ServerArcheryFrame frame) {
+	public GameLoopThread(World world, ServerArcheryFrame frame) throws IOException {
 		this.world = world;
 		this.frame = frame;
+		//frame2 = frame2.getFrame();
+		//frame2 = new ClientArcheryFrame();
 		output = frame.getServer().getSocketThread().getOutput();
 	}
 
-	public GameLoopThread(World world, ClientArcheryFrame frame2) {
+	public GameLoopThread(World world, ClientArcheryFrame frame2) throws IOException {
 		this.world = world;
 		this.frame2 = frame2;
+		//frame = new ServerArcheryFrame();
 		output = frame2.getClient().getClientThread().getOutput();
 	}
+	/*public GameLoopThread(World world, Frame frame3) {
+		this.world = world;
+		this.frame3 = frame3;
+		//output = frame2.getClient().getClientThread().getOutput();
+	}*/
 
 	@Override
 	public void run() {
@@ -65,12 +74,13 @@ public class GameLoopThread extends Thread {
 							if (x2 > start && y2 > top && y2 < bottom) {
 								world.setNumClientOuts();
 								frame.getClientLabel().setText("Client outs: " + world.getNumClientOuts());
-								ClientPersonHit personHit = new ClientPersonHit(world.getNumClientOuts());
+								ClientPersonHit personHit = new ClientPersonHit();
 								output.writeObject(personHit);
 								output.flush();
 								output.reset();
 								if (world.getNumClientOuts() == 4) {
 									world.setClientOut();
+									frame.removeMouseListener(world);
 									ClientGameOver gameOver = new ClientGameOver();
 									output.writeObject(gameOver);
 									output.flush();
@@ -124,12 +134,13 @@ public class GameLoopThread extends Thread {
 							if (x3 < start2 && y3 > top2 && y3 < bottom2) {
 								world.setNumServerOuts();
 								frame2.getServerLabel().setText("Server outs: " + world.getNumServerOuts());
-								/*ServerPersonHit personHit = new ServerPersonHit(frame.getServerLabel());
+								ServerPersonHit personHit = new ServerPersonHit();
 								output.writeObject(personHit);
 								output.flush();
-								output.reset();*/
+								output.reset();
 								if (world.getNumServerOuts() == 4) {
 									world.setServerOut();
+									frame2.removeMouseListener(world);
 									ServerGameOver gameOver = new ServerGameOver();
 									output.writeObject(gameOver);
 									output.flush();
