@@ -9,6 +9,8 @@ public class ClientGameOver implements Messages, Serializable {
 	@Override
 	public void perform(World world) {
 		world.setClientOut();
+		world.removeMouseListener(world.getAdapter());
+		world.removeMouseMotionListener(world.getAdapter());
 	}
 
 }

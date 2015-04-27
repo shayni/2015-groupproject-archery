@@ -3,8 +3,11 @@ package archery;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -12,7 +15,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class World extends JComponent implements Serializable, MouseListener {
+public class World extends JComponent implements Serializable, MouseListener, MouseMotionListener {
 
 	private Person serverPerson;
 	private Person clientPerson;
@@ -28,33 +31,8 @@ public class World extends JComponent implements Serializable, MouseListener {
 	private JFrame frame;
 	private JLabel serverLabel;
 	private JLabel clientLabel;
-	
 
-	public JLabel getServerLabel() {
-		return serverLabel;
-	}
-
-	public void setServerLabel(JLabel serverLabel) {
-		this.serverLabel = serverLabel;
-	}
-
-	public JLabel getClientLabel() {
-		return clientLabel;
-	}
-
-	public void setClientLabel(JLabel clientLabel) {
-		this.clientLabel = clientLabel;
-	}
-
-	public void setReleased(boolean released) {
-		this.released = released;
-	}
-
-	public boolean isReleased() {
-		return released;
-	}
-
-	public World(JFrame frame,JLabel serverLabel,JLabel clientLabel) throws IOException {
+	public World(JFrame frame, JLabel serverLabel, JLabel clientLabel) throws IOException {
 		this.frame = frame;
 		int h = frame.getHeight();
 		int w = frame.getWidth();
@@ -82,6 +60,8 @@ public class World extends JComponent implements Serializable, MouseListener {
 		// (clientArrow.getTheHeight() / 2));
 		serArrow = new Arrow(x, y, x + 100, y);
 		cliArrow = new Arrow(cx, cy, cx - 100, cy);
+		this.addMouseListener(adapter);
+		this.addMouseMotionListener(adapter);
 	}
 
 	public Person getServerPerson() {
@@ -151,36 +131,139 @@ public class World extends JComponent implements Serializable, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		released = true;
+		// released = true;
 
 	}
 
+	public MouseAdapter getAdapter() {
+		return adapter;
+	}
+
+	private MouseAdapter adapter = new MouseAdapter() {
+
+		int xPressed;
+		int yPressed;
+		int xDragged;
+		int yDragged;
+		int x;
+		int y;
+
+		float h;
+		float o;
+		float a;
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			xPressed = e.getX();
+			yPressed = e.getY();
+			y = yPressed;
+
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			System.out.println("dragged");
+			Point point = e.getPoint();
+
+			// xPressed = world.getSerArrow().getX1();
+			// yPressed = world.getSerArrow().getY1();
+			// xDragged = e.getX();
+			xDragged = point.x;
+			System.out.println(xDragged);
+			// yDragged = e.getY() +1;
+			yDragged = point.y;
+			System.out.println(yDragged);
+
+			double angle = Math.atan((xPressed - xDragged) / (yPressed - yDragged));
+			/*
+			 * x = xDragged;
+			 * 
+			 * h = (float) Math.sqrt(Math.pow(xDragged - xPressed, 2) +
+			 * Math.pow(yDragged - yPressed, 2)); o = (float)
+			 * Math.sqrt(Math.pow(xDragged - x, 2) + Math.pow(yDragged - y, 2));
+			 * a = (float) Math.sqrt(Math.pow(xPressed - x, 2) +
+			 * Math.pow(yPressed - y, 2));
+			 * 
+			 * double angle = Math.acos((a / h));
+			 * 
+			 * 
+			 * double angle1 = Math .atan2(yPressed - yDragged, xPressed -
+			 * xDragged); double angle2 = Math.atan2(yPressed - y, xPressed -
+			 * x);
+			 * 
+			 * 
+			 * double amount =Math.abs(angle1) - Math.abs(angle2);
+			 */
+			double toDegree = Math.toDegrees(angle);
+			System.out.println(toDegree);
+			getSerArrow().rotate(toDegree);
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			released = true;
+
+		}
+
+	};
+
 	public JFrame getFrame() {
 		return frame;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// System.out.println("dragged");
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
+	}
+
+	public JLabel getServerLabel() {
+		return serverLabel;
+	}
+
+	public void setServerLabel(JLabel serverLabel) {
+		this.serverLabel = serverLabel;
+	}
+
+	public JLabel getClientLabel() {
+		return clientLabel;
+	}
+
+	public void setClientLabel(JLabel clientLabel) {
+		this.clientLabel = clientLabel;
+	}
+
+	public void setReleased(boolean released) {
+		this.released = released;
+	}
+
+	public boolean isReleased() {
+		return released;
 	}
 
 }

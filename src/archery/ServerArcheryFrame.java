@@ -37,16 +37,12 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 		this.setVisible(true);
 
 		mid = (this.getWidth() / 2) - 5;
-		serverLabel = new JLabel("Server outs: 0" , SwingConstants.CENTER);
+		serverLabel = new JLabel("Server outs: 0", SwingConstants.CENTER);
 		clientLabel = new JLabel("Client outs: 0", SwingConstants.CENTER);
 
-		world = new World(this,serverLabel,clientLabel);
-		// add(world);
+		world = new World(this, serverLabel, clientLabel);
 		this.addKeyListener(this);
-		addMouseListener(world);
-		// this.addMouseMotionListener(adapter);
-		// this.addMouseListener(listener);
-		
+
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
 		JPanel panel = new JPanel();
@@ -97,21 +93,24 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 		}
 
 		public void mouseDragged(MouseEvent e) {
-			//xPressed = world.getSerArrow().getX1();
-			//yPressed = world.getSerArrow().getY1();
+			// xPressed = world.getSerArrow().getX1();
+			// yPressed = world.getSerArrow().getY1();
 			xDragged = e.getX();
 			yDragged = e.getY();
-			
-			double angle = Math.atan((xPressed - xDragged)/(yPressed-yDragged));
-			/*x = xDragged;
 
-			h = (float) Math.sqrt(Math.pow(xDragged - xPressed, 2) + Math.pow(yDragged - yPressed, 2));
-			o = (float) Math.sqrt(Math.pow(xDragged - x, 2) + Math.pow(yDragged - y, 2));
-			a = (float) Math.sqrt(Math.pow(xPressed - x, 2) + Math.pow(yPressed - y, 2));
-
-			double angle = Math.acos((a / h));
-
-			
+			double angle = Math.atan((xPressed - xDragged) / (yPressed - yDragged));
+			/*
+			 * x = xDragged;
+			 * 
+			 * h = (float) Math.sqrt(Math.pow(xDragged - xPressed, 2) +
+			 * Math.pow(yDragged - yPressed, 2)); o = (float)
+			 * Math.sqrt(Math.pow(xDragged - x, 2) + Math.pow(yDragged - y, 2));
+			 * a = (float) Math.sqrt(Math.pow(xPressed - x, 2) +
+			 * Math.pow(yPressed - y, 2));
+			 * 
+			 * double angle = Math.acos((a / h));
+			 * 
+			 * 
 			 * double angle1 = Math .atan2(yPressed - yDragged, xPressed -
 			 * xDragged); double angle2 = Math.atan2(yPressed - y, xPressed -
 			 * x);
@@ -121,9 +120,8 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 			 */
 			double toDegree = Math.toDegrees(angle);
 			System.out.println(toDegree);
-			world.getSerArrow().rotate(toDegree); 
-			
-			
+			world.getSerArrow().rotate(toDegree);
+
 		}
 
 		public void mouseReleased(MouseEvent e) {
@@ -192,14 +190,6 @@ public class ServerArcheryFrame extends JFrame implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 
 	}
-
-	/*
-	 * @Override public void mouseDragged(MouseEvent e) { }
-	 * 
-	 * @Override public void mouseMoved(MouseEvent arg0) {
-	 * 
-	 * }
-	 */
 
 	MouseListener listener = new MouseListener() {
 

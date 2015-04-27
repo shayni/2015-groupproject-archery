@@ -38,26 +38,21 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseList
 		container.setLayout(new BorderLayout());
 		// this.setBackground(Color.GREEN);
 		this.setVisible(true);
-		
+
 		serverLabel = new JLabel("Server outs: 0", SwingConstants.CENTER);
 		clientLabel = new JLabel("Client outs: 0", SwingConstants.CENTER);
 
-		world = new World(this,serverLabel,clientLabel);
+		world = new World(this, serverLabel, clientLabel);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 0));
 
-		
 		panel.add(serverLabel);
 		panel.add(clientLabel);
 
 		container.add(world, BorderLayout.CENTER);
 		container.add(panel, BorderLayout.NORTH);
 		this.addKeyListener(this);
-		addMouseListener(world);
-
-		// this.addMouseMotionListener(adapter);
-		// this.addMouseListener(listener);
 		this.setVisible(true);
 		mid = (this.getWidth() / 2) + 5;
 		client = new Client(world);
@@ -77,6 +72,7 @@ public class ClientArcheryFrame extends JFrame implements KeyListener, MouseList
 	public ClientArcheryFrame getFrame() {
 		return this;
 	}
+
 	MouseAdapter adapter = new MouseAdapter() {
 
 		int xPressed;

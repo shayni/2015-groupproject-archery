@@ -80,7 +80,8 @@ public class GameLoopThread extends Thread {
 								output.reset();
 								if (world.getNumClientOuts() == 4) {
 									world.setClientOut();
-									frame.removeMouseListener(world);
+									world.removeMouseListener(world.getAdapter());
+									world.removeMouseMotionListener(world.getAdapter());
 									ClientGameOver gameOver = new ClientGameOver();
 									output.writeObject(gameOver);
 									output.flush();
@@ -140,7 +141,8 @@ public class GameLoopThread extends Thread {
 								output.reset();
 								if (world.getNumServerOuts() == 4) {
 									world.setServerOut();
-									frame2.removeMouseListener(world);
+									world.removeMouseListener(world.getAdapter());
+									world.removeMouseMotionListener(world.getAdapter());
 									ServerGameOver gameOver = new ServerGameOver();
 									output.writeObject(gameOver);
 									output.flush();
