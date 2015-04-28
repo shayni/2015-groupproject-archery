@@ -56,7 +56,7 @@ public class GameLoopThread extends Thread {
 						try {
 							Thread.sleep(1);
 							world.repaint();
-							ArrowReleased arrowReleased = new ArrowReleased(arrow);
+							ServerArrowReleased arrowReleased = new ServerArrowReleased(arrow);
 
 							try {
 								output.writeObject(arrowReleased);

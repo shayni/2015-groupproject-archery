@@ -22,6 +22,10 @@ public class Arrow implements Serializable {
 	}
 
 	public void draw(Graphics g) {
+		
+		g.drawLine(x1, y1, x2, y2);
+	}
+	public void draw2D(Graphics g) {
 		g.drawLine(x1, y1, x2, y2);
 	}
 

@@ -12,13 +12,15 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class World extends JComponent implements Serializable, MouseListener, MouseMotionListener {
+public class World extends JComponent implements Serializable, MouseListener,
+		MouseMotionListener {
 
 	private Person serverPerson;
 	private Person clientPerson;
@@ -35,7 +37,8 @@ public class World extends JComponent implements Serializable, MouseListener, Mo
 	private JLabel serverLabel;
 	private JLabel clientLabel;
 
-	public World(JFrame frame, JLabel serverLabel, JLabel clientLabel) throws IOException {
+	public World(JFrame frame, JLabel serverLabel, JLabel clientLabel)
+			throws IOException {
 		this.frame = frame;
 		int h = frame.getHeight();
 		int w = frame.getWidth();
@@ -99,21 +102,30 @@ public class World extends JComponent implements Serializable, MouseListener, Mo
 		g.setColor(Color.GREEN);
 
 		Graphics2D gr = (Graphics2D) g;
-		Line2D line = new Line2D.Double(0, 0, 100, 0);
-		AffineTransform rotate = AffineTransform.getRotateInstance(Math.toRadians(serArrow.getAngle()), line.getX1(),
-				line.getY1());
 
-		
+		Line2D line = new Line2D.Double(serArrow.getX1(), serArrow.getY1(),
+				serArrow.getX2(), serArrow.getY2());
+		Line2D line2 = new Line2D.Double(cliArrow.getX1(), cliArrow.getY1(),
+				cliArrow.getX2(), cliArrow.getY2());
+
+		AffineTransform rotate = AffineTransform
+				.getRotateInstance(Math.toRadians(serArrow.getAngle()),
+						line.getX1(), line.getY1());
+		AffineTransform rotate2 = AffineTransform.getRotateInstance(
+				Math.toRadians(cliArrow.getAngle()), line2.getX1(),
+				line2.getY1());
+
 		gr.draw(rotate.createTransformedShape(line));
+		gr.draw(rotate2.createTransformedShape(line2));
 
-		serArrow.draw(g);
-		cliArrow.draw(g);
 		g.setColor(Color.RED);
 		g.setFont(new Font("Kristen ITC", Font.BOLD, 30));
 		if (serverOut) {
-			g.drawString("You are dead!", serverPerson.getX(), serverPerson.getY());
+			g.drawString("You are dead!", serverPerson.getX(),
+					serverPerson.getY());
 		} else if (clientOut) {
-			g.drawString("You are dead!", clientPerson.getX(), clientPerson.getY());
+			g.drawString("You are dead!", clientPerson.getX(),
+					clientPerson.getY());
 		}
 	}
 
@@ -200,13 +212,15 @@ public class World extends JComponent implements Serializable, MouseListener, Mo
 			// xPressed = world.getSerArrow().getX1();
 			// yPressed = world.getSerArrow().getY1();
 			// xDragged = e.getX();
+
 			xDragged = point.x;
 			System.out.println(xDragged);
-			// yDragged = e.getY() +1;
 			yDragged = point.y;
 			System.out.println(yDragged);
 
-			double angle = Math.atan2((yDragged - yPressed),(xDragged - xPressed));
+			double angle = Math.atan2((yDragged - yPressed),
+					(xDragged - xPressed));
+
 			/*
 			 * x = xDragged;
 			 * 
@@ -228,8 +242,16 @@ public class World extends JComponent implements Serializable, MouseListener, Mo
 			 */
 			double toDegree = Math.toDegrees(angle);
 			System.out.println(toDegree);
-			getSerArrow().rotate(toDegree);
-
+			if (xPressed < (frame.getWidth() / 2)) {
+				getSerArrow().rotate(180 - (toDegree / -1));
+				ServerRotateArrow sra = new ServerRotateArrow(180 - (toDegree / -1));
+				//ObjectOutputStream output = 
+				/*output.writeObject(sra);
+				output.flush();
+				output.reset();*/
+			} else {
+				getCliArrow().rotate((toDegree));
+			}
 		}
 
 		@Override
