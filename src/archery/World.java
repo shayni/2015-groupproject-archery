@@ -3,11 +3,14 @@ package archery;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -94,6 +97,15 @@ public class World extends JComponent implements Serializable, MouseListener, Mo
 		// serverArrow.draw(g);
 		// clientArrow.draw(g);
 		g.setColor(Color.GREEN);
+
+		Graphics2D gr = (Graphics2D) g;
+		Line2D line = new Line2D.Double(0, 0, 100, 0);
+		AffineTransform rotate = AffineTransform.getRotateInstance(Math.toRadians(serArrow.getAngle()), line.getX1(),
+				line.getY1());
+
+		
+		gr.draw(rotate.createTransformedShape(line));
+
 		serArrow.draw(g);
 		cliArrow.draw(g);
 		g.setColor(Color.RED);
@@ -194,7 +206,7 @@ public class World extends JComponent implements Serializable, MouseListener, Mo
 			yDragged = point.y;
 			System.out.println(yDragged);
 
-			double angle = Math.atan((xPressed - xDragged) / (yPressed - yDragged));
+			double angle = Math.atan2((yDragged - yPressed),(xDragged - xPressed));
 			/*
 			 * x = xDragged;
 			 * 

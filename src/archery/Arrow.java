@@ -78,4 +78,12 @@ public class Arrow implements Serializable {
 		// g.drawImage(op.filter(head, null), point.getHor(), point.getVer(), 20, 20, null);
 	}
 
+	public double getAngle() {
+		return angle;
+	}
+
+	public void setAngle(double angle) {
+		this.angle = angle;
+	}
+
 }
