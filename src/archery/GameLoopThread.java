@@ -99,6 +99,7 @@ public class GameLoopThread extends Thread {
 					arrow.setY1(y1);
 					arrow.setX2(x1 + 100);
 					arrow.setY2(y1);
+					arrow.setAngle(0);
 					ReplaceServerArrow replace = new ReplaceServerArrow(arrow);
 					try {
 						output.writeObject(replace);
@@ -163,6 +164,7 @@ public class GameLoopThread extends Thread {
 					arrow2.setY1(y1);
 					arrow2.setX2(x1 - 100);
 					arrow2.setY2(y1);
+					arrow2.setAngle(0);
 					ReplaceClientArrow replace = new ReplaceClientArrow(arrow2);
 					try {
 						System.out.println("sending replacement arrow");
@@ -172,7 +174,7 @@ public class GameLoopThread extends Thread {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-
+		
 				}
 			}
 			world.setReleased(false);

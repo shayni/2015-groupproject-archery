@@ -74,14 +74,6 @@ public class Arrow implements Serializable {
 		this.y2 = y2;
 	}
 
-	public void rotate(double angle) {
-		this.angle = angle;
-		//AffineTransform rotate = AffineTransform.getRotateInstance(Math.toRadians(angle), (x2- x1),1);
-		//AffineTransformOp op = new AffineTransformOp(rotate, AffineTransformOp.TYPE_BILINEAR);
-		 
-		// g.drawImage(op.filter(head, null), point.getHor(), point.getVer(), 20, 20, null);
-	}
-
 	public double getAngle() {
 		return angle;
 	}

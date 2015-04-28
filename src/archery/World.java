@@ -24,8 +24,6 @@ public class World extends JComponent implements Serializable, MouseListener,
 
 	private Person serverPerson;
 	private Person clientPerson;
-	// private ServerBowAndArrow serverArrow;
-	// private ClientBowAndArrow clientArrow;
 	private Arrow serArrow;
 	private Arrow cliArrow;
 	private boolean released;
@@ -54,16 +52,7 @@ public class World extends JComponent implements Serializable, MouseListener,
 		clientOut = false;
 		this.clientLabel = clientLabel;
 		this.serverLabel = serverLabel;
-		// serverArrow = new ServerBowAndArrow(x, y);
-		// clientArrow = new ClientBowAndArrow(cx, cy);
-		// serArrow = new Arrow(serverArrow.getX(), serverArrow.getY() +
-		// (serverArrow.getHeight() / 2), serverArrow.getX()
-		// + serverArrow.getWidth(), serverArrow.getY() +
-		// (serverArrow.getHeight() / 2));
-		// cliArrow = new Arrow(clientArrow.getX() + 5, clientArrow.getY() +
-		// (clientArrow.getTheHeight() / 2),
-		// clientArrow.getX() + clientArrow.getTheWidth(), clientArrow.getY() +
-		// (clientArrow.getTheHeight() / 2));
+		
 		serArrow = new Arrow(x, y, x + 100, y);
 		cliArrow = new Arrow(cx, cy, cx - 100, cy);
 		this.addMouseListener(adapter);
@@ -86,19 +75,11 @@ public class World extends JComponent implements Serializable, MouseListener,
 		numClientOuts = numClientOuts + 1;
 	}
 
-	/*
-	 * public ServerBowAndArrow getServerArrow() { return serverArrow; }
-	 * 
-	 * public ClientBowAndArrow getClientArrow() { return clientArrow; }
-	 */
-
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		serverPerson.draw(g);
 		clientPerson.draw(g);
-		// serverArrow.draw(g);
-		// clientArrow.draw(g);
 		g.setColor(Color.GREEN);
 
 		Graphics2D gr = (Graphics2D) g;
@@ -243,14 +224,16 @@ public class World extends JComponent implements Serializable, MouseListener,
 			double toDegree = Math.toDegrees(angle);
 			System.out.println(toDegree);
 			if (xPressed < (frame.getWidth() / 2)) {
-				getSerArrow().rotate(180 - (toDegree / -1));
+				Arrow serArrow = getSerArrow();
+				serArrow.setAngle(180 - (toDegree / -1));
 				ServerRotateArrow sra = new ServerRotateArrow(180 - (toDegree / -1));
 				//ObjectOutputStream output = 
 				/*output.writeObject(sra);
 				output.flush();
 				output.reset();*/
 			} else {
-				getCliArrow().rotate((toDegree));
+				Arrow cliArrow = getCliArrow();
+				cliArrow.setAngle((toDegree));
 			}
 		}
 
