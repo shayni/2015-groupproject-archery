@@ -13,6 +13,7 @@ public class Arrow implements Serializable {
 	private int x2;
 	private int y2;
 	private double angle;
+	private int t = 1;
 
 	public Arrow(int x1, int y1, int x2, int y2) {
 		this.x1 = x1;
@@ -22,22 +23,37 @@ public class Arrow implements Serializable {
 	}
 
 	public void draw(Graphics g) {
-		
+
 		g.drawLine(x1, y1, x2, y2);
 	}
+
 	public void draw2D(Graphics g) {
 		g.drawLine(x1, y1, x2, y2);
 	}
 
 	public void moveClient() {
-		setX1(x1 - 1);
-		setX2(x2 - 1);
+		// setX1(x1 - 1);
+		// setX2(x2 - 1);
+
+		x1 = (int) (x1 + 2 * t * Math.cos(angle));
+		// x1 = (int) (2 *t *Math.cos(angle));
+		x2 = x1 + 100;
+		y1 = (int) ((y1 + 2 * t * Math.sin(angle)) + (.5 * -9.8 * Math.pow(t, 2)));
+		// y1 = (int) (( 2* t* Math.sin(angle)) +( .5 * -9.8 * Math.pow(t, 2)));
+		y2 = y1;
+		t++;
 
 	}
 
 	public void moveServer() {
-		setX1(x1 + 1);
-		setX2(x2 + 1);
+		// setX1(x1 + 1);
+		// setX2(x2 + 1);
+
+		x1 = (int) (x1 + 5 * t * Math.cos(angle));
+		x2 = x1 + 100;
+		y1 = (int) ((y1 + 5 * t * Math.sin(angle)) + (.5 * -9.8 * Math.pow(t, 2)));
+		y2 = y1;
+		t++;
 
 	}
 

@@ -51,10 +51,11 @@ public class GameLoopThread extends Thread {
 					int x = arrow.getX1();
 
 					while (x < frame.getWidth()) {
+						System.out.println ("entered loop: x = " + x);
 
 						arrow.moveServer();
 						try {
-							Thread.sleep(1);
+							Thread.sleep(100);
 							world.repaint();
 							ServerArrowReleased arrowReleased = new ServerArrowReleased(arrow);
 
@@ -117,9 +118,10 @@ public class GameLoopThread extends Thread {
 					int x2 = arrow2.getX1();
 
 					while (x2 > 0) {
+						System.out.println ("entered loop: x = " + x2);
 						arrow2.moveClient();
 						try {
-							Thread.sleep(1);
+							Thread.sleep(100);
 							world.repaint();
 							ClientArrowReleases arrowReleased2 = new ClientArrowReleases(arrow2);
 
@@ -181,7 +183,7 @@ public class GameLoopThread extends Thread {
 
 			world.repaint();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
