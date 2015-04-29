@@ -82,7 +82,7 @@ public class World extends JComponent implements Serializable, MouseListener,
 		clientPerson.draw(g);
 		g.setColor(Color.GREEN);
 
-		Graphics2D gr = (Graphics2D) g;
+		/*Graphics2D gr = (Graphics2D) g;
 
 		Line2D line = new Line2D.Double(serArrow.getX1(), serArrow.getY1(),
 				serArrow.getX2(), serArrow.getY2());
@@ -97,9 +97,12 @@ public class World extends JComponent implements Serializable, MouseListener,
 				line2.getY1());
 
 		gr.draw(rotate.createTransformedShape(line));
-		gr.draw(rotate2.createTransformedShape(line2));
+		gr.draw(rotate2.createTransformedShape(line2));*/
 
+		serArrow.draw(g);
+		cliArrow.draw(g);
 		g.setColor(Color.RED);
+		
 		g.setFont(new Font("Kristen ITC", Font.BOLD, 30));
 		if (serverOut) {
 			g.drawString("You are dead!", serverPerson.getX(),
@@ -187,7 +190,7 @@ public class World extends JComponent implements Serializable, MouseListener,
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			System.out.println("dragged");
+			/*System.out.println("dragged");
 			Point point = e.getPoint();
 
 			// xPressed = world.getSerArrow().getX1();
@@ -202,7 +205,7 @@ public class World extends JComponent implements Serializable, MouseListener,
 			double angle = Math.atan2((yDragged - yPressed),
 					(xDragged - xPressed));
 
-			/*
+			
 			 * x = xDragged;
 			 * 
 			 * h = (float) Math.sqrt(Math.pow(xDragged - xPressed, 2) +
@@ -220,7 +223,7 @@ public class World extends JComponent implements Serializable, MouseListener,
 			 * 
 			 * 
 			 * double amount =Math.abs(angle1) - Math.abs(angle2);
-			 */
+			 
 			double toDegree = Math.toDegrees(angle);
 			System.out.println(toDegree);
 			if (xPressed < (frame.getWidth() / 2)) {
@@ -228,13 +231,13 @@ public class World extends JComponent implements Serializable, MouseListener,
 				serArrow.setAngle(180 - (toDegree / -1));
 				ServerRotateArrow sra = new ServerRotateArrow(180 - (toDegree / -1));
 				//ObjectOutputStream output = 
-				/*output.writeObject(sra);
+				output.writeObject(sra);
 				output.flush();
-				output.reset();*/
+				output.reset();
 			} else {
 				Arrow cliArrow = getCliArrow();
 				cliArrow.setAngle((toDegree));
-			}
+			}*/
 		}
 
 		@Override

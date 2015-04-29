@@ -44,7 +44,7 @@ public class GameLoopThread extends Thread {
 
 				int start = clientPerson.getX();
 				int top = clientPerson.getY();
-				int bottom = clientPerson.getY() + clientPerson.getHeight();
+				int bottom = clientPerson.getY() + (clientPerson.getHeight()*2);
 
 				if (frame2 == null) {
 					Arrow arrow = world.getSerArrow();
@@ -112,7 +112,7 @@ public class GameLoopThread extends Thread {
 				} else {
 					int start2 = serverPerson.getX() + serverPerson.getWidth();
 					int top2 = serverPerson.getY();
-					int bottom2 = serverPerson.getY() + serverPerson.getHeight();
+					int bottom2 = serverPerson.getY() + (serverPerson.getHeight()*2);
 					Arrow arrow2 = world.getCliArrow();
 					int x2 = arrow2.getX1();
 
