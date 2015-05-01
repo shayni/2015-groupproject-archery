@@ -35,12 +35,12 @@ public class Arrow implements Serializable {
 		// setX1(x1 - 1);
 		// setX2(x2 - 1);
 
-		x1 = (int) (x1 + 2 * t * Math.cos(angle));
+		x1 = (int) (x1 + 5 * t * Math.cos(angle));
 		// x1 = (int) (2 *t *Math.cos(angle));
-		x2 = x1 + 100;
-		y1 = (int) ((y1 + 2 * t * Math.sin(angle)) + (.5 * -9.8 * Math.pow(t, 2)));
+		x2 = x1 - 100;
+		y1 = (int) ((y1 + 5 * t * Math.sin(angle)) + (.5 * -9.8 * Math.pow(t, 2)));
 		// y1 = (int) (( 2* t* Math.sin(angle)) +( .5 * -9.8 * Math.pow(t, 2)));
-		y2 = y1;
+		//y2 = y1;
 		t++;
 
 	}
@@ -52,7 +52,7 @@ public class Arrow implements Serializable {
 		x1 = (int) (x1 + 5 * t * Math.cos(angle));
 		x2 = x1 + 100;
 		y1 = (int) ((y1 + 5 * t * Math.sin(angle)) + (.5 * -9.8 * Math.pow(t, 2)));
-		y2 = y1;
+		//y2 = y1;
 		t++;
 
 	}
